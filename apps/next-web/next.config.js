@@ -14,6 +14,15 @@ const nextConfig = {
   },
 };
 
+if (process.env.STATIC === 'true') {
+  nextConfig.output = 'export';
+  nextConfig.typescript = {
+    ignoreBuildErrors: false,
+  };
+  nextConfig.distDir = '../../web-docker/content';
+  nextConfig.trailingSlash = true;
+}
+
 const plugins = [
   // Add more Next.js plugins to this list if needed.
   withNx,
