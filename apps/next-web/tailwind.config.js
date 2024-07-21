@@ -1,6 +1,7 @@
 import withMT from '@material-tailwind/react/utils/withMT';
-export const FOOTER_HEIGHT = 32;
-export const HEADER_HEIGHT = 64;
+export const FOOTER_HEIGHT = 56;
+export const HEADER_HEIGHT = 72;
+export const MOBILE_HEADER_HEIGHT = 56;
 
 export default withMT({
   content: [
@@ -10,8 +11,11 @@ export default withMT({
   ],
   theme: {
     extend: {
-      height: (theme) => ({
+      minHeight: (theme) => ({
         pageContent: `calc(100vh - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)`,
+        mobilePageContent: `calc(100vh - ${
+          FOOTER_HEIGHT + MOBILE_HEADER_HEIGHT
+        }px)`,
         footer: `${FOOTER_HEIGHT}px`,
         header: `${HEADER_HEIGHT}px`,
       }),

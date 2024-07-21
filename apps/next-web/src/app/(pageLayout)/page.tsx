@@ -10,8 +10,12 @@ export default function Index() {
    * Note: The corresponding styles are in the ./index.css file.
    */
   return (
-    <div className={`${styles.page} flex justify-center h-pageContent`}>
-      <Loading enabled={true} />
+    <div
+      className={`${styles.page} flex justify-center 
+    min-h-mobilePageContent
+    md:min-h-pageContent`}
+    >
+      <Loading enabled={false} />
       PAGE CONTENT
     </div>
   );
