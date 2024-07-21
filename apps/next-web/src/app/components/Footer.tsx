@@ -3,6 +3,7 @@
 import Typography from '@material-tailwind/react/components/Typography';
 import Link from 'next/link';
 import * as React from 'react';
+import { FOOTER_HEIGHT } from '../theme';
 
 function Copyright() {
   return (
@@ -19,7 +20,9 @@ function Copyright() {
 
 function Footer() {
   return (
-    <div className="footer h-10 flex items-center justify-center">
+    <div
+      className={`footer h-footer flex items-center justify-center`}
+    >
       <Copyright />
     </div>
   );

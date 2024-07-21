@@ -1,4 +1,4 @@
-export const theme = {
+export const materialTheme = {
   button: {
     defaultProps: {
       color: 'primary',

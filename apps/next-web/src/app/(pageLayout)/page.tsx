@@ -6,5 +6,7 @@ export default function Index() {
    *
    * Note: The corresponding styles are in the ./index.css file.
    */
-  return <div className={styles.page}>dasdsa</div>;
+  return (
+    <div className={`${styles.page} flex justify-center h-pageContent`}>PAGE CONTENT</div>
+  );
 }
