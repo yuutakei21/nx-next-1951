@@ -3,7 +3,11 @@ export const FOOTER_HEIGHT = 32;
 export const HEADER_HEIGHT = 64;
 
 export default withMT({
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    '../../node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}',
+    '../../node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       height: (theme) => ({
