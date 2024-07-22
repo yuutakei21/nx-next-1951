@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 // import Typography from '@material-tailwind/react/components/Typography';
 // import Link from 'next/link';
@@ -25,15 +25,13 @@
 //   );
 // }
 
-import { Typography } from '@material-tailwind/react';
-
 function Footer() {
   return (
-    <footer className="footer footer-center  w-full p-4 bg-gray-300 text-gray-800">
+    <footer className="footer footer-center  w-full p-2 bg-gray-300 text-gray-800">
       <div className="text-center">
         <p>
-          Copyright © 2022 -
-          <a className="font-semibold" href="mailto:m.sohanemon@gmail.com">
+          Copyright © {new Date().getFullYear()} -
+          <a className="font-semibold" href="user@example.com">
             Yuu
           </a>
         </p>

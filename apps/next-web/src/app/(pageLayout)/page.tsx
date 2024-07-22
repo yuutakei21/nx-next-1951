@@ -1,7 +1,9 @@
-'use client';
+"use client";
 
-import { Loading } from '../components/Loading';
-import styles from './page.module.css';
+import { Loading } from "../components/Loading";
+import PlayGround from "../components/Toast/PlayGround";
+import PasswordInput from "../components/molecules/PasswordInput";
+import styles from "./page.module.css";
 
 export default function Index() {
   /*
@@ -11,12 +13,11 @@ export default function Index() {
    */
   return (
     <div
-      className={`${styles.page} flex justify-center 
-    min-h-mobilePageContent
-    md:min-h-pageContent`}
+      className={`${styles.page} flex justify-center min-h-mobilePageContent lg:min-h-pageContent`}
     >
       <Loading enabled={false} />
-      PAGE CONTENT
+      {/* <PlayGround /> */}
+      <PasswordInput />
     </div>
   );
 }
