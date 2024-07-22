@@ -3,8 +3,26 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/nest-api/src",
   "projectType": "application",
-  "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/nest-api",
+        "main": "apps/nest-api/src/main.ts",
+        "tsConfig": "apps/nest-api/tsconfig.app.json",
+        "assets": ["apps/nest-api/src/assets"],
+        "generatePackageJson": false,
+        "webpackConfig": "apps/nest-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
@@ -19,6 +37,14 @@
           "buildTarget": "nest-api:build:production"
         }
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/nest-api/**/*.ts"]
+      }
     }
-  }
+  },
+  "tags": []
 }
