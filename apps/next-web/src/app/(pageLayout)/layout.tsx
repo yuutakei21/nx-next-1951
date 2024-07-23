@@ -1,5 +1,5 @@
 import Header from '../components/Header';
-import { Sidebar } from '../components/Sidebar';
+import { SidebarProvider } from '../components/Sidebar/useSidebar';
 
 export default function PageLayout({
   children,
@@ -8,11 +8,12 @@ export default function PageLayout({
 }) {
   return (
     <div className="page-layout flex flex-row h-screen">
-      <Sidebar />
-      <div className='w-full'>
-        <Header />
-        {children}
-      </div>
+      <SidebarProvider>
+        <div className="w-full">
+          <Header />
+          {children}
+        </div>
+      </SidebarProvider>
     </div>
   );
 }

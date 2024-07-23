@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import clsx from "clsx";
-import { useEffect, useRef, useState } from "react";
-import { ToastProps } from "./type";
-import { useToast } from "./useToast";
+import clsx from 'clsx';
+import { useEffect, useRef, useState } from 'react';
+import { ToastProps } from './type';
+import { useToast } from './useToast';
 import {
   animationVariables,
   closeButtonClasses,
@@ -11,18 +11,18 @@ import {
   getIcon,
   iconClasses,
   wrapperClasses,
-} from "./utils";
+} from './utils';
 
 export const Toast = (props: ToastProps) => {
   let {
-    type = "info",
-    icon = "",
-    message = "---",
+    type = 'info',
+    icon = '',
+    message = '---',
     id,
     duration = 3000,
   } = props;
-  icon = icon === "" ? getIcon(type) : icon;
-  duration = typeof duration === "string" ? +duration : duration;
+  icon = icon === '' ? getIcon(type) : icon;
+  duration = typeof duration === 'string' ? +duration : duration;
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { remove, position } = useToast();
@@ -61,17 +61,18 @@ export const Toast = (props: ToastProps) => {
     return () => {
       clearInterval(progressBarRef.current);
     };
-  }, []);
+  }, [duration, progress]);
   return (
     <div
-      style={{ ["--elm-translate" as any]: animationVariables[position] }}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      style={{ ['--elm-translate' as any]: animationVariables[position] }}
       className={clsx(
         wrapperClasses[type],
-        "animate-toastIn",
-        "flex justify-between items-center overflow-hidden rounded-md shadow-lg my-3 relative"
+        'animate-toastIn',
+        'flex justify-between items-center overflow-hidden rounded-md shadow-lg my-3 relative'
       )}
       ref={wrapperRef}
-      role={"alert"}
+      role={'alert'}
     >
       {/* progressBar default color bg-neutral-200 */}
       {!!duration && (
@@ -84,7 +85,7 @@ export const Toast = (props: ToastProps) => {
       )}
 
       {icon && (
-        <div className={clsx(iconClasses[type], "flex p-3")}>
+        <div className={clsx(iconClasses[type], 'flex p-3')}>
           <div className="inline-flex justify-center items-center w-6 h-6">
             <span className="sr-only">{type} Icon</span>
             {icon}

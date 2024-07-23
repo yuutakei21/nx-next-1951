@@ -2,7 +2,7 @@
 
 import { Alert } from '@material-tailwind/react';
 import { Loading } from '../components/Loading';
-import { Sidebar } from '../components/Sidebar';
+import { Sidebar } from '../components/Sidebar/Sidebar';
 import PlayGround from '../components/Toast/PlayGround';
 import PasswordInput from '../components/molecules/PasswordInput';
 import styles from './page.module.css';

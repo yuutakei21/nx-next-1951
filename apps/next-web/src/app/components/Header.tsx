@@ -10,21 +10,29 @@ import {
   Card,
 } from '@material-tailwind/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAlignJustify, faCaretSquareLeft, faEject, faEllipsisV, faKey } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAlignJustify,
+  faCaretSquareLeft,
+  faEject,
+  faEllipsisV,
+  faKey,
+} from '@fortawesome/free-solid-svg-icons';
 import Menu, {
   MenuHandler,
   MenuItem,
   MenuList,
 } from '@material-tailwind/react/components/Menu';
+import { useSidebar } from './Sidebar/useSidebar';
 
 function Header() {
   const [openNav, setOpenNav] = React.useState(false);
+  const { toggle } = useSidebar();
 
   return (
     <Navbar className="bg-[rgb(255,193,7)] top-0 z-10 h-12 min-w-full rounded-none px-4 py-0">
       <div className="flex items-center justify-between text-blue-gray-900 h-full">
         <div className="flex flex-row gap-2">
-          <IconButton className="bg-transparent shadow-none">
+          <IconButton className="bg-transparent shadow-none" onClick={toggle}>
             <FontAwesomeIcon className="text-gray-700" icon={faAlignJustify} />
           </IconButton>
           <Typography
@@ -49,7 +57,10 @@ function Header() {
                 パスワード設定
               </MenuItem>
               <MenuItem>
-                <FontAwesomeIcon className="text-gray-700 mr-2" icon={faCaretSquareLeft} />
+                <FontAwesomeIcon
+                  className="text-gray-700 mr-2"
+                  icon={faCaretSquareLeft}
+                />
                 ログアウト
               </MenuItem>
             </MenuList>
