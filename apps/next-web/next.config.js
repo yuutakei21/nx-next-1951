@@ -14,14 +14,14 @@ const nextConfig = {
   },
 };
 
-if (process.env.STATIC === 'true') {
-  nextConfig.output = 'export';
-  nextConfig.typescript = {
-    ignoreBuildErrors: false,
-  };
-  nextConfig.distDir = '../../web-docker/content';
-  nextConfig.trailingSlash = true;
-}
+// if (process.env.STATIC === 'true') {
+//   nextConfig.output = 'export';
+//   nextConfig.typescript = {
+//     ignoreBuildErrors: true,
+//   };
+//   nextConfig.distDir = './out';
+//   nextConfig.trailingSlash = true;
+// }
 
 const plugins = [
   // Add more Next.js plugins to this list if needed.
