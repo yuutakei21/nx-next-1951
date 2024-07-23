@@ -1,6 +1,6 @@
 import withMT from '@material-tailwind/react/utils/withMT';
 const FOOTER_HEIGHT = 40;
-const HEADER_HEIGHT = 72;
+const HEADER_HEIGHT = 48;
 const MOBILE_HEADER_HEIGHT = 56;
 
 const config = withMT({
@@ -33,8 +33,12 @@ const config = withMT({
           },
         },
       },
+      maxHeight: {
+        pageContent: `calc(100vh - ${HEADER_HEIGHT}px)`,
+      },
       minHeight: {
-        pageContent: `calc(100vh - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)`,
+        pageContent: `calc(100vh - ${HEADER_HEIGHT}px)`,
+        // pageContent: `calc(100vh - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)`,
         mobilePageContent: `calc(100vh - ${
           FOOTER_HEIGHT + MOBILE_HEADER_HEIGHT
         }px)`,

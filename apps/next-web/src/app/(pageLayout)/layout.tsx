@@ -1,5 +1,5 @@
-import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { Sidebar } from '../components/Sidebar';
 
 export default function PageLayout({
   children,
@@ -7,10 +7,12 @@ export default function PageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="page-layout">
-      <Header />
-      {children}
-      <Footer />
+    <div className="page-layout flex flex-row h-screen">
+      <Sidebar />
+      <div className='w-full'>
+        <Header />
+        {children}
+      </div>
     </div>
   );
 }

@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { Loading } from "../components/Loading";
-import PlayGround from "../components/Toast/PlayGround";
-import PasswordInput from "../components/molecules/PasswordInput";
-import styles from "./page.module.css";
+import { Loading } from '../components/Loading';
+import { Sidebar } from '../components/Sidebar';
+import PlayGround from '../components/Toast/PlayGround';
+import PasswordInput from '../components/molecules/PasswordInput';
+import styles from './page.module.css';
 
 export default function Index() {
   /*
@@ -12,12 +13,10 @@ export default function Index() {
    * Note: The corresponding styles are in the ./index.css file.
    */
   return (
-    <div
-      className={`${styles.page} flex justify-center min-h-mobilePageContent lg:min-h-pageContent`}
-    >
+    <div className={`${styles.page} flex justify-center max-h-pageContent min-h-pageContent`}>
       <Loading enabled={false} />
+      dasds
       {/* <PlayGround /> */}
-      <PasswordInput />
     </div>
   );
 }
