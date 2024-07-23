@@ -9,7 +9,7 @@ function NoticeAlert({ description = 'description' }: any) {
   const [open, setOpen] = useState(true);
 
   return (
-    <div className="h-8 notice-alert border border-[#2ec946] w-full">
+    <div className="notice-alert border border-[#2ec946] w-full">
       <Alert
         className="rounded-none py-1 border-l-4 border-[#2ec946] bg-transparent font-medium text-[#2ec946] items-center"
         open={open}
