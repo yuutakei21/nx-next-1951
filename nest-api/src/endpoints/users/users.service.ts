@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { SearchUserType, SortUserType } from './types';
 import * as bcrypt from 'bcrypt';
 import { Prisma, User } from '@prisma/client';
+import { SearchUserInput, SortUserInput, UserCreateInputDto } from './types';
 
 @Injectable()
 export class UsersService {
@@ -30,7 +30,7 @@ export class UsersService {
     });
   }
 
-  async create(createInput: Prisma.UserCreateInput) {
+  async create(createInput: UserCreateInputDto) {
     console.log(`create user`);
     const { password: rawPassword, ...createUserInput } = createInput;
     let password: string;
@@ -92,8 +92,8 @@ export class UsersService {
   async findAll(
     skip: number,
     pageSize: number,
-    search: SearchUserType,
-    sort: SortUserType,
+    search: SearchUserInput,
+    sort: SortUserInput,
   ) {
     const where: Prisma.UserWhereInput = this.normalizeSearchUser(search);
     const orderBy: Prisma.UserOrderByWithRelationInput[] =

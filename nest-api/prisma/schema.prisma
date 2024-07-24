@@ -15,7 +15,7 @@ generator nestjs_dto_generator {
   dtoClassNameSuffix   = "Dto" // default: "Dto"
   dtoFileNameSuffix    = ".dto" // default: ".dto"
   toLowerCase          = true // field name to lower case, default: false
-  output = "../src/endpoints/@generated"
+  output               = "../src/endpoints/@generated"
 }
 
 datasource db {
@@ -62,17 +62,17 @@ model User {
   role  String @default("USER")
   email String @unique
 
-  firstName String?
-  lastName  String?
+  firstName String? @map(name: "first_name")
+  lastName  String? @map(name: "last_name")
 
   password String
   enabled  Boolean @default(true)
 
   tenant   Tenant? @relation(fields: [tenantId], references: [id])
-  tenantId Int?
+  tenantId Int?    @map(name: "tenant_id")
 
   department   Department? @relation(fields: [departmentId], references: [id])
-  departmentId Int?
+  departmentId Int?        @map(name: "department_id")
 
   timestamp DateTime @default(now())
   createdAt DateTime @default(now()) @map(name: "created_at")

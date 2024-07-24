@@ -47,16 +47,10 @@
 //   }
 // }
 import { UsersService } from './users.service';
-import { Prisma, User } from '@prisma/client';
-import {
-  Controller,
-  Post,
-  Body,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { UserDto } from '../@generated/dtos';
+import { GetUsersInput, UserCreateInputDto } from './types';
 
 @ApiTags('users')
 @Controller('users')
@@ -67,12 +61,19 @@ export class UsersController {
     type: UserDto,
   })
   @Post('create')
-  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-  createUser(@Body() createUserDto: Prisma.UserCreateInput): Promise<User> {
+  // @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+  createUser(@Body() createUserDto: UserCreateInputDto) {
     return this.usersService.create(createUserDto);
   }
-  // @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-  // async users(@Body() createUserDto: CreateUserDto) {
-  //   return this.usersService.findAll(skip, pageSize, search, sort);
-  // }
+
+  @ApiOkResponse({
+    type: UserDto,
+    isArray: true,
+  })
+  @Post('all')
+  async users(@Body() getUsersInput: GetUsersInput) {
+    const { page, pageSize, search, sort } = getUsersInput;
+    const skip = Math.max(page - 1, 0) * pageSize;
+    return this.usersService.findAll(skip, pageSize, search, sort);
+  }
 }
