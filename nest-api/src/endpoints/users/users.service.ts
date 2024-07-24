@@ -44,6 +44,7 @@ export class UsersService {
       },
     });
     console.log(`create user id: ${res.id}`);
+    res.password = '';
     return res;
   }
 

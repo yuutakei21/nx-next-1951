@@ -39,7 +39,7 @@ export default function Index() {
       </div> */}
       {/* <PlayGround /> */}
       {/* <PasswordInput /> */}
-      {/* <SortableTable /> */}
+      <SortableTable />
       <Button onClick={login}>LOGIN</Button>;
     </div>
   );

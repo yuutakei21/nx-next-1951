@@ -47,7 +47,7 @@
 //   }
 // }
 import { UsersService } from './users.service';
-import { Prisma } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import {
   Controller,
   Post,
@@ -55,16 +55,20 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { UserDto } from '../@generated/dtos';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
+  @ApiOkResponse({
+    type: UserDto,
+  })
   @Post('create')
   @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-  async createUser(@Body() createUserDto: Prisma.UserCreateInput) {
+  createUser(@Body() createUserDto: Prisma.UserCreateInput): Promise<User> {
     return this.usersService.create(createUserDto);
   }
   // @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))

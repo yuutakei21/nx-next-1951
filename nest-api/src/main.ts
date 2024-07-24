@@ -8,6 +8,7 @@ import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
 import { AspectLogger } from './operation-logs/AspectLogger';
+import { urlencoded } from 'express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
@@ -17,7 +18,11 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
-
+  app.use(
+    urlencoded({
+      extended: true,
+    }),
+  );
   app.enableCors({
     origin: '*',
     methods: '*',
@@ -31,7 +36,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-
   await app.listen(port);
   Logger.log(
     `🚀 Playground is running on: http://localhost:${port}/${globalPrefix}`,
