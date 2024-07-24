@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: postgres:11
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: default
+      PGDATA: /data/postgres
+    ports:
+      - "5432:5432"

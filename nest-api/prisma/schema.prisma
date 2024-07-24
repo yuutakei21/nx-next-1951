@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Sample {
+  id String @id @default(uuid())
+}
+
+model Tenant {
+  id Int @id @default(autoincrement())
+
+  name    String  @unique
+  enabled Boolean @default(true)
+
+  users       User[]
+  departments Department[]
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@map("tenants")
+}
+
+model Department {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  users User[]
+
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+  tenantId Int    @map(name: "tenant_id")
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@map("departments")
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  role  String @default("USER")
+  email String @unique
+
+  firstName String?
+  lastName  String?
+
+  password String
+  enabled  Boolean @default(true)
+
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
+  tenantId Int?
+
+  department   Department? @relation(fields: [departmentId], references: [id])
+  departmentId Int?
+
+  timestamp DateTime @default(now())
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@map("users")
+}
