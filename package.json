@@ -1,12 +1,11 @@
 {
+  "license": "MIT",
   "scripts": {
-    "openapi": "openapi-rq -i http://localhost:3000/api-json -c axios -o ./next-web/src/app/@openapi"
+    "openapi": "rapini react-query v5 -p http://localhost:3000/api-json -n  testopenapi -o next-web/src/app/@openapi"
   },
   "devDependencies": {
-    "@7nohe/openapi-react-query-codegen": "^1.4.1",
-    "commander": "^12",
-    "glob": "^10",
-    "ts-morph": "^22",
-    "typescript": "^5.5.4"
+    "openapi-types": "^12.1.3",
+    "rapini": "^3.5.0"
   }
 }
+       

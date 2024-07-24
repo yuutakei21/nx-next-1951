@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import TailwindMaterial from "./providers/TailwindMaterial";
 import { ToastProvider } from "./components/Toast";
+import QueryProvider from "./providers/QueryProvider";
 
 const inter = Inter({ subsets: ["latin-ext"] });
 
@@ -20,7 +21,10 @@ export default function RootLayout({
     <html lang="jp">
       <body className={inter.className} suppressHydrationWarning={true}>
         <TailwindMaterial>
-          <ToastProvider>{children}</ToastProvider>
+          <ToastProvider>
+            {/* {children} */}
+            <QueryProvider>{children}</QueryProvider>
+          </ToastProvider>
         </TailwindMaterial>
       </body>
     </html>
