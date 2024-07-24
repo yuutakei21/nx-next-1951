@@ -81,12 +81,21 @@ export class UsersService {
 
   normalizeSearchUser(search: any) {
     console.log(search);
-    return {};
+    const where = { AND: [] };
+    where.AND = [];
+    if (search) {
+      where.AND.push({
+        email: { contains: search.email, mode: 'insensitive' },
+      });
+    }
+    return where;
   }
 
   normalizeUserSort(sort: any) {
-    console.log(sort);
-    return [];
+    const orderBy = [];
+    if (!sort) return;
+    orderBy.push(sort);
+    return orderBy;
   }
 
   async findAll(
@@ -96,6 +105,8 @@ export class UsersService {
     sort: SortUserInput,
   ) {
     const where: Prisma.UserWhereInput = this.normalizeSearchUser(search);
+    console.log(where);
+
     const orderBy: Prisma.UserOrderByWithRelationInput[] =
       this.normalizeUserSort(sort);
 

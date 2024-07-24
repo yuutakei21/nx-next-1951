@@ -48,7 +48,7 @@
     "openapi-typescript": "^7.1.0",
     "openapi-typescript-codegen": "^0.29.0",
     "prettier": "^3.3.3",
-    "prisma-nestjs-dto-generator": "^0.1.12",
+    "prisma-class-generator": "^0.2.9",
     "source-map-support": "0.5.21",
     "ts-loader": "9.5.1",
     "ts-node": "10.9.2",

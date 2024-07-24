@@ -20,13 +20,13 @@ export class UsersWithPagination {
 
 export class SearchUserInput {
   @ApiProperty({ type: () => String })
-  name: string;
+  email: string;
 }
 
 export class SortUserInput {
-  @ApiProperty({ type: () => String || Date })
+  @ApiProperty({ enum: ['asc', 'desc'] })
   @IsDate()
-  updatedAt: string;
+  updatedAt: 'asc' | 'desc';
 }
 
 export class UserCreateInputDto {
@@ -84,15 +84,15 @@ export class UserCreateInputDto {
 }
 
 export class GetUsersInput {
-  @ApiProperty({ type: () => Number })
+  @ApiProperty({ type: () => Number, default: 1 })
   page?: number = 1;
 
-  @ApiProperty({ type: () => Number })
+  @ApiProperty({ type: () => Number, default: 1000 })
   pageSize?: number = 1000;
 
-  @ApiProperty({ type: () => SearchUserInput })
+  @ApiProperty({ type: () => SearchUserInput, default: null })
   search?: SearchUserInput;
 
-  @ApiProperty({ type: () => SortUserInput })
-  sort?: SortUserInput;
+  @ApiProperty({ type: () => SortUserInput, default: { updatedAt: 'desc' } })
+  sort?: SortUserInput = { updatedAt: 'desc' };
 }

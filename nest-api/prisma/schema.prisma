@@ -6,17 +6,22 @@ generator client {
   // binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
-generator nestjs_dto_generator {
-  provider             = "prisma-nestjs-dto-generator"
-  enableModel          = true // default: true
-  modelFileNameSuffix  = ".model" // default: ".model"
-  modelClassNameSuffix = "Model" // default: ""
-  enableSwagger        = true // default: false
-  dtoClassNameSuffix   = "Dto" // default: "Dto"
-  dtoFileNameSuffix    = ".dto" // default: ".dto"
-  toLowerCase          = true // field name to lower case, default: false
-  output               = "../src/endpoints/@generated"
+generator prismaClassGenerator {
+  provider = "prisma-class-generator"
+  output   = "../src/endpoints/@generated"
 }
+
+// generator nestjs_dto_generator {
+//   provider             = "prisma-nestjs-dto-generator"
+//   enableModel          = true // default: true
+//   modelFileNameSuffix  = ".model" // default: ".model"
+//   modelClassNameSuffix = "Model" // default: ""
+//   enableSwagger        = true // default: false
+//   dtoClassNameSuffix   = "Dto" // default: "Dto"
+//   dtoFileNameSuffix    = ".dto" // default: ".dto"
+//   toLowerCase          = true // field name to lower case, default: false
+//   output               = "../src/endpoints/@generated"
+// }
 
 datasource db {
   provider = "postgresql"
