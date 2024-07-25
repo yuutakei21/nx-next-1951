@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
 import { Prisma, User } from '@prisma/client';
-import { SearchUserInput, SortUserInput, UserCreateInputDto } from './types';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'nestjs-prisma';
+import { SearchUserInput, SortUserInput, UserCreateInputDto } from './types';
 
 @Injectable()
 export class UsersService {
@@ -48,15 +47,14 @@ export class UsersService {
     return res;
   }
 
-  async update(id: number, updateInput: Prisma.UserUpdateInput) {
+  async update(id: number, updateInput: UserCreateInputDto) {
     console.log(`update user id: ${id}`);
-    console.log(updateInput);
     const { password: rawPassword, ...updateUserInput } = updateInput;
     let password: string;
     if (rawPassword) {
       password = await this.hashPassword(rawPassword as string);
     }
-    return await this.prisma.user.update({
+    const res = await this.prisma.user.update({
       where: {
         id,
       },
@@ -65,6 +63,8 @@ export class UsersService {
         password,
       },
     });
+    res.password = '';
+    return res;
   }
 
   async disable(id: number) {
