@@ -29,7 +29,7 @@ export class UsersService {
     });
   }
 
-  async create(createInput: Prisma.UserCreateInput) {
+  async create(createInput: Prisma.UserUncheckedCreateInput) {
     console.log(`create user`);
     const { password: rawPassword, ...createUserInput } = createInput;
     let password: string;

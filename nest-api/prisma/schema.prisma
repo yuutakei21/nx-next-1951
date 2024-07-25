@@ -16,9 +16,9 @@ datasource db {
 model Tenant {
   id          String       @id @default(uuid())
   name        String       @unique
-  enabled     Boolean?     @default(true)
-  createdAt   DateTime?    @default(now()) @map("created_at")
-  updatedAt   DateTime?    @updatedAt @map("updated_at")
+  enabled     Boolean      @default(true)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
   departments Department[]
   users       User[]
 
@@ -26,12 +26,12 @@ model Tenant {
 }
 
 model Department {
-  id        String    @id @default(uuid())
-  name      String    @unique
-  tenantId  String    @map("tenant_id")
-  createdAt DateTime? @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
-  tenant    Tenant    @relation(fields: [tenantId], references: [id])
+  id        String   @id @default(uuid())
+  name      String   @unique
+  tenantId  String   @map("tenant_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
   users     User[]
 
   @@map("departments")
@@ -39,19 +39,24 @@ model Department {
 
 model User {
   id           String     @id @default(uuid())
-  role         String?    @default("USER")
   email        String     @unique
-  firstName    String?    @default("") @map("first_name")
-  lastName     String?    @default("") @map("last_name")
+  firstName    String     @default("") @map("first_name")
+  lastName     String     @default("") @map("last_name")
   password     String
-  enabled      Boolean?   @default(true)
+  enabled      Boolean    @default(true)
   tenantId     String     @map("tenant_id")
   departmentId String     @map("department_id")
-  timestamp    DateTime?  @default(now())
-  createdAt    DateTime?  @default(now()) @map("created_at")
-  updatedAt    DateTime?  @updatedAt @map("updated_at")
+  timestamp    DateTime   @default(now())
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+  role         UserRole   @default(USER)
   department   Department @relation(fields: [departmentId], references: [id])
   tenant       Tenant     @relation(fields: [tenantId], references: [id])
 
   @@map("users")
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }

@@ -1,5 +1,14 @@
 import { UsersService } from './users.service';
-import { Controller, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
 import { GetUsersInput, UserCreateInputDto } from './types';
 import { UserDto } from '../../@generated/dtos/user.dto';
@@ -11,7 +20,7 @@ export class UsersController {
 
   @ApiOkResponse({ type: UserDto })
   @Post('create')
-  // @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   createUser(@Body() createUserDto: UserCreateInputDto) {
     return this.usersService.create(createUserDto);
   }

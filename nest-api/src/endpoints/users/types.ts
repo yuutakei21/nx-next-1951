@@ -2,12 +2,13 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
   IsDate,
+  IsEnum,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
 import { UserDto } from '../../@generated/dtos/user.dto';
+import { UserRole } from '@prisma/client';
 
 export class UsersWithPagination {
   @ApiProperty({ type: () => UserDto })
@@ -47,47 +48,41 @@ export class UserCreateInputDto {
   @IsString()
   password: string;
 
-  @ApiProperty({ required: false, type: () => String, default: null })
-  @IsNotEmpty()
-  @IsString()
-  role?: string;
+  @ApiProperty({ required: false, type: () => String })
+  @IsEnum(UserRole)
+  role?: UserRole = UserRole.USER;
 
-  @ApiProperty({ required: false, type: () => String, default: null })
-  @IsOptional()
+  @ApiProperty({ required: false, type: () => String })
   @IsString()
-  firstName?: string;
+  firstName?: string = '';
 
-  @ApiProperty({ required: false, type: () => String, default: null })
-  @IsOptional()
+  @ApiProperty({ required: false, type: () => String })
   @IsString()
-  lastName?: string;
+  lastName?: string = '';
 
-  @ApiProperty({ required: false, type: () => Boolean, default: null })
-  @IsNotEmpty()
+  @ApiProperty({ required: false, type: () => Boolean })
   @IsBoolean()
-  enabled?: boolean;
+  enabled?: boolean = true;
 
-  @ApiProperty({ required: false, type: () => String })
+  @ApiProperty({ required: true, type: () => String })
+  @IsNotEmpty()
+  tenantId: string;
+
+  @ApiProperty({ required: true, type: () => String })
+  @IsNotEmpty()
+  departmentId: string;
+
+  @ApiProperty({ required: false })
   @IsOptional()
-  @IsNumber()
-  tenantId?: string;
+  timestamp: Date | string;
 
-  @ApiProperty({ required: false, type: () => String })
+  @ApiProperty({ required: false })
   @IsOptional()
-  @IsNumber()
-  departmentId?: string;
+  createdAt: Date | string;
 
   @ApiProperty({ required: false })
-  @IsDate()
-  timestamp: Date;
-
-  @ApiProperty({ required: false })
-  @IsDate()
-  createdAt: Date;
-
-  @ApiProperty({ required: false })
-  @IsDate()
-  updatedAt: Date;
+  @IsOptional()
+  updatedAt: Date | string;
 }
 
 export class GetUsersInput {

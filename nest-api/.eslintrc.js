@@ -28,5 +28,18 @@ module.exports = {
         usePrettierrc: true,
       },
     ],
+
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'static-src',
+            message: 'Please use relative path instead.',
+          },
+        ],
+        patterns: ['src/*'],
+      },
+    ],
   },
 };
