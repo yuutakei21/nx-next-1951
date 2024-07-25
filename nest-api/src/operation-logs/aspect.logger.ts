@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 // import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { tap } from 'rxjs/operators';
-import { OPERATION_HEALTHCHECK } from 'src/constants/operations';
+import { OPERATION_HEALTHCHECK } from '../constants/operations';
 import { v4 as uuidv4 } from 'uuid';
 
 enum OPERATION {

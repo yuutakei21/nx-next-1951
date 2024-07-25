@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { Prisma, User } from '@prisma/client';
 import { SearchUserInput, SortUserInput, UserCreateInputDto } from './types';
+import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class UsersService {

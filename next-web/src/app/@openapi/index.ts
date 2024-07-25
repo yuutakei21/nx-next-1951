@@ -1,5 +1,64 @@
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { useQuery, useMutation, useQueryClient, type QueryClient, type UseMutationOptions, type UseQueryOptions, type MutationFunction, type UseMutationResult, type UseQueryResult } from "@tanstack/react-query";
+export type UserCreateInputDto = {
+    email: string;
+    password: string;
+    role?: string;
+    firstName?: string;
+    lastName?: string;
+    enabled?: boolean;
+    tenantId?: number;
+    departmentId?: number;
+    timestamp?: string;
+    createdAt?: string;
+    updatedAt?: string;
+};
+export type DepartmentDto = {
+    id: number;
+    name: string;
+    users: UserDto;
+    tenant: TenantDto;
+    tenantId: number;
+    createdAt: string;
+    updatedAt: string;
+};
+export type UserDto = {
+    id: number;
+    role: string;
+    email: string;
+    firstName?: string;
+    lastName?: string;
+    password: string;
+    enabled: boolean;
+    tenant?: TenantDto;
+    tenantId?: number;
+    department?: DepartmentDto;
+    departmentId?: number;
+    timestamp: string;
+    createdAt: string;
+    updatedAt: string;
+};
+export type TenantDto = {
+    id: number;
+    name: string;
+    enabled: boolean;
+    users: UserDto;
+    departments: DepartmentDto;
+    createdAt: string;
+    updatedAt: string;
+};
+export type SearchUserInput = {
+    email: string;
+};
+export type SortUserInput = {
+    updatedAt: "asc" | "desc";
+};
+export type GetUsersInput = {
+    page: number;
+    pageSize: number;
+    search: SearchUserInput;
+    sort: SortUserInput;
+};
 export type LoginUserInput = {
     email: string;
     password: string;
@@ -50,9 +109,21 @@ export const queryKeys = {
 export type QueryKeys = typeof queryKeys;
 function makeRequests(axios: AxiosInstance, config?: AxiosConfig) {
     return {
-        usersControllerCreateUser: () => axios.request<unknown>({
+        usersControllerCreateUser: (payload: UserCreateInputDto) => axios.request<UserDto>({
             method: "post",
-            url: `/api/users/create`
+            url: `/api/users/create`,
+            data: payload,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.data),
+        usersControllerUsers: (payload: GetUsersInput) => axios.request<UserDto[]>({
+            method: "post",
+            url: `/api/users/all`,
+            data: payload,
+            headers: {
+                "Content-Type": "application/json"
+            }
         }).then(res => res.data),
         authControllerRefreshToken: () => axios.request<unknown>({
             method: "get",
@@ -98,12 +169,14 @@ function makeQueries(requests: Requests) {
     } as const;
 }
 type MutationConfigs = {
-    useUsersControllerCreateUser?: (queryClient: QueryClient) => Pick<UseMutationOptions<Response<"usersControllerCreateUser">, unknown, unknown, unknown>, "onSuccess" | "onSettled" | "onError">;
+    useUsersControllerCreateUser?: (queryClient: QueryClient) => Pick<UseMutationOptions<Response<"usersControllerCreateUser">, unknown, Parameters<Requests["usersControllerCreateUser"]>[0], unknown>, "onSuccess" | "onSettled" | "onError">;
+    useUsersControllerUsers?: (queryClient: QueryClient) => Pick<UseMutationOptions<Response<"usersControllerUsers">, unknown, Parameters<Requests["usersControllerUsers"]>[0], unknown>, "onSuccess" | "onSettled" | "onError">;
     useAuthControllerLogin?: (queryClient: QueryClient) => Pick<UseMutationOptions<Response<"authControllerLogin">, unknown, Parameters<Requests["authControllerLogin"]>[0], unknown>, "onSuccess" | "onSettled" | "onError">;
 };
 function makeMutations(requests: Requests, config?: Config["mutations"]) {
     return {
-        useUsersControllerCreateUser: (options?: Omit<UseMutationOptions<Response<"usersControllerCreateUser">, unknown, unknown, unknown>, "mutationFn">) => useRapiniMutation<Response<"usersControllerCreateUser">, unknown, unknown>(() => requests.usersControllerCreateUser(), config?.useUsersControllerCreateUser, options),
+        useUsersControllerCreateUser: (options?: Omit<UseMutationOptions<Response<"usersControllerCreateUser">, unknown, Parameters<Requests["usersControllerCreateUser"]>[0], unknown>, "mutationFn">) => useRapiniMutation<Response<"usersControllerCreateUser">, unknown, Parameters<Requests["usersControllerCreateUser"]>[0]>(payload => requests.usersControllerCreateUser(payload), config?.useUsersControllerCreateUser, options),
+        useUsersControllerUsers: (options?: Omit<UseMutationOptions<Response<"usersControllerUsers">, unknown, Parameters<Requests["usersControllerUsers"]>[0], unknown>, "mutationFn">) => useRapiniMutation<Response<"usersControllerUsers">, unknown, Parameters<Requests["usersControllerUsers"]>[0]>(payload => requests.usersControllerUsers(payload), config?.useUsersControllerUsers, options),
         useAuthControllerLogin: (options?: Omit<UseMutationOptions<Response<"authControllerLogin">, unknown, Parameters<Requests["authControllerLogin"]>[0], unknown>, "mutationFn">) => useRapiniMutation<Response<"authControllerLogin">, unknown, Parameters<Requests["authControllerLogin"]>[0]>(payload => requests.authControllerLogin(payload), config?.useAuthControllerLogin, options)
     } as const;
 }

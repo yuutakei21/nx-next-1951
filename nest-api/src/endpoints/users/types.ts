@@ -1,3 +1,4 @@
+import { UserDto } from '@generated/dtos/user.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
@@ -7,7 +8,6 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { UserDto } from '../@generated/dtos/user.dto';
 
 export class UsersWithPagination {
   @ApiProperty({ type: () => UserDto })
