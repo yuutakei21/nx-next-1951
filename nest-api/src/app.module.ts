@@ -7,7 +7,7 @@ import { AuthModule } from './endpoints/auth/auth.module';
 import { HealthModule } from './endpoints/health/health.module';
 import { UsersController } from './endpoints/users/user.controller';
 import { UsersModule } from './endpoints/users/users.module';
-import { PrismaClient } from './endpoints/@generated/prisma-client/default';
+import { PrismaClient } from './endpoints/@generated/prisma-client';
 
 @Module({
   imports: [
@@ -16,7 +16,13 @@ import { PrismaClient } from './endpoints/@generated/prisma-client/default';
     }),
     CustomPrismaModule.forRoot({
       name: 'CustomPrismaClient', // 👈 must be unique for each PrismaClient
-      client: new PrismaClient(), // create new instance of PrismaClient
+      client: new PrismaClient({
+        datasources: {
+          db: {
+            url: process.env.DATABASE_URL,
+          },
+        },
+      }), // create new instance of PrismaClient
       isGlobal: true,
     }),
     HealthModule,
