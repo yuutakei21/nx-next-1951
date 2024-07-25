@@ -21,6 +21,9 @@ export class UsersWithPagination {
 export class SearchUserInput {
   @ApiProperty({ type: () => String })
   email: string;
+
+  @ApiProperty({ type: () => String })
+  enabled: string;
 }
 
 export class SortUserInput {

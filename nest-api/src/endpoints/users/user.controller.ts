@@ -24,6 +24,7 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @ApiParam({ name: 'id' })
   disableUser(@Param() { id }) {
     return this.usersService.disable(parseInt(id, 10));
   }

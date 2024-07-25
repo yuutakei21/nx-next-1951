@@ -69,7 +69,7 @@ export class UsersService {
 
   async disable(id: number) {
     console.log(`disable user id: ${id}`);
-    return await this.prisma.user.update({
+    const res = await this.prisma.user.update({
       where: {
         id,
       },
@@ -77,12 +77,24 @@ export class UsersService {
         enabled: false,
       },
     });
+    res.password = '';
+    return res;
   }
 
-  normalizeSearchUser(search: any) {
+  normalizeSearchUser(search: SearchUserInput) {
     console.log(search);
     const where = { AND: [] };
     where.AND = [];
+
+    // enabled
+    if (search && search.enabled === 'all') {
+      // search all
+    } else {
+      where.AND.push({
+        enabled: true,
+      });
+    }
+    // email
     if (search) {
       where.AND.push({
         email: { contains: search.email, mode: 'insensitive' },
