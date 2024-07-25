@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '@prisma/client';
 import { Type } from 'class-transformer';
+import { User } from '../../@generated/prisma-client';
 
 export class LoginUserInput {
   @ApiProperty({ type: String })

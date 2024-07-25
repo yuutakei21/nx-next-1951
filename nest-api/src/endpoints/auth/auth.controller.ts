@@ -4,7 +4,7 @@ import {
   CustomBadRequestCredentialException,
   CustomUnauthorizedException,
 } from '../../constants/errors';
-import { User } from '@prisma/client';
+import { User } from '../@generated/prisma-client';
 import { Get, Controller, Post, Body } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 

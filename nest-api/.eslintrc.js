@@ -38,7 +38,7 @@ module.exports = {
             message: 'Please use relative path instead.',
           },
         ],
-        patterns: ['src/*'],
+        patterns: ['src/*', '@prisma/client'],
       },
     ],
   },

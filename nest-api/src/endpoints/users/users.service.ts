@@ -1,16 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { Prisma, User } from '@prisma/client';
+import { Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { PrismaService } from 'nestjs-prisma';
+import { CustomPrismaService } from 'nestjs-prisma';
 import { SearchUserInput, SortUserInput } from './types';
+import { Prisma, PrismaClient, User } from '../@generated/prisma-client';
 
 @Injectable()
 export class UsersService {
-  prisma: PrismaService;
-
-  constructor(prisma: PrismaService) {
-    this.prisma = prisma;
-  }
+  constructor(
+    @Inject('CustomPrismaClient') // 👈 use unique name to reference
+    private prisma: CustomPrismaService<PrismaClient>, // specify PrismaClient for type-safety & auto-completion
+  ) {}
 
   hashPassword(password: string): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -36,7 +35,7 @@ export class UsersService {
     if (rawPassword) {
       password = await this.hashPassword(rawPassword);
     }
-    const res = await this.prisma.user.create({
+    const res = await this.prisma.client.user.create({
       data: {
         ...createUserInput,
         password,
@@ -56,7 +55,7 @@ export class UsersService {
     if (rawPassword) {
       password = await this.hashPassword(rawPassword as string);
     }
-    const res = await this.prisma.user.update({
+    const res = await this.prisma.client.user.update({
       where: {
         id,
       },
@@ -73,7 +72,7 @@ export class UsersService {
 
   async disable(id: string) {
     console.log(`disable user id: ${id}`);
-    const res = await this.prisma.user.update({
+    const res = await this.prisma.client.user.update({
       where: {
         id,
       },
@@ -126,14 +125,14 @@ export class UsersService {
     const orderBy: Prisma.UserOrderByWithRelationInput[] =
       this.normalizeUserSort(sort);
 
-    const data = await this.prisma.user.findMany({
+    const data = await this.prisma.client.user.findMany({
       skip,
       take: pageSize,
       where: where,
       orderBy,
     });
 
-    const count = await this.prisma.user.count({ where: where });
+    const count = await this.prisma.client.user.count({ where: where });
 
     return {
       data,
@@ -142,7 +141,7 @@ export class UsersService {
   }
 
   findOneByEmail(email: string) {
-    return this.prisma.user.findFirst({
+    return this.prisma.client.user.findFirst({
       where: {
         email,
       },
@@ -157,7 +156,7 @@ export class UsersService {
       ...updateData,
       updatedAt: new Date(),
     };
-    return this.prisma.user.update({
+    return this.prisma.client.user.update({
       where: {
         id: user.id,
       },
