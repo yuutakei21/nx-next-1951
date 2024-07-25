@@ -17,11 +17,6 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {
-      "@generated/*": [
-        "./src/@generated/*"
-      ],
-    }
   },
   "exclude": [
     "node_modules",

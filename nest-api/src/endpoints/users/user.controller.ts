@@ -50,7 +50,7 @@ import { UsersService } from './users.service';
 import { Controller, Post, Body } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { GetUsersInput, UserCreateInputDto } from './types';
-import { UserDto } from '@generated/dtos/user.dto';
+import { UserDto } from '../../@generated/dtos/user.dto';
 
 @ApiTags('users')
 @Controller('users')
