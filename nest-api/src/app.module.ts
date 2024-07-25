@@ -7,7 +7,7 @@ import { AuthModule } from './endpoints/auth/auth.module';
 import { HealthModule } from './endpoints/health/health.module';
 import { UsersController } from './endpoints/users/user.controller';
 import { UsersModule } from './endpoints/users/users.module';
-import { PrismaClient } from './endpoints/@generated/prisma-client';
+import { PrismaClient } from './@generated/prisma-client';
 
 @Module({
   imports: [

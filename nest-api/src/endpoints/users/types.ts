@@ -7,8 +7,8 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { User as UserDto } from '../@generated/prisma-class/models';
-import { UserRole } from '../@generated/prisma-class/enums/UserRole.enum';
+import { User as UserDto } from '../../@generated/prisma-class/models';
+import { UserRole } from '../../@generated/prisma-class/enums/UserRole.enum';
 
 export class UsersWithPagination {
   @ApiProperty({ type: () => UserDto })

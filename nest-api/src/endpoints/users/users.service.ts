@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { CustomPrismaService } from 'nestjs-prisma';
 import { SearchUserInput, SortUserInput } from './types';
-import { Prisma, PrismaClient, User } from '../@generated/prisma-client';
+import { Prisma, PrismaClient, User } from '../../@generated/prisma-client';
 
 @Injectable()
 export class UsersService {
