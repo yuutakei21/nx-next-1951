@@ -33,45 +33,49 @@ export class SortUserInput {
 }
 
 export class UserCreateInputDto {
-  @ApiProperty({ required: true, type: () => String })
+  @ApiProperty({
+    required: true,
+    type: () => String,
+    default: 'user@example.com',
+  })
   @IsNotEmpty()
   @IsString()
   email: string;
 
-  @ApiProperty({ required: true, type: () => String })
+  @ApiProperty({ required: true, type: () => String, default: '123456@Ss' })
   @IsNotEmpty()
   @IsString()
   password: string;
 
-  @ApiProperty({ required: false, type: () => String })
+  @ApiProperty({ required: false, type: () => String, default: null })
   @IsNotEmpty()
   @IsString()
   role?: string;
 
-  @ApiProperty({ required: false, type: () => String })
+  @ApiProperty({ required: false, type: () => String, default: null })
   @IsOptional()
   @IsString()
   firstName?: string;
 
-  @ApiProperty({ required: false, type: () => String })
+  @ApiProperty({ required: false, type: () => String, default: null })
   @IsOptional()
   @IsString()
   lastName?: string;
 
-  @ApiProperty({ required: false, type: () => Boolean })
+  @ApiProperty({ required: false, type: () => Boolean, default: null })
   @IsNotEmpty()
   @IsBoolean()
   enabled?: boolean;
 
-  @ApiProperty({ required: false, type: () => Number })
+  @ApiProperty({ required: false, type: () => String })
   @IsOptional()
   @IsNumber()
-  tenantId?: number;
+  tenantId?: string;
 
-  @ApiProperty({ required: false, type: () => Number })
+  @ApiProperty({ required: false, type: () => String })
   @IsOptional()
   @IsNumber()
-  departmentId?: number;
+  departmentId?: string;
 
   @ApiProperty({ required: false })
   @IsDate()

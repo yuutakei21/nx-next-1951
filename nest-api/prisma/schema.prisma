@@ -1,9 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
-  // binaryTargets = ["native", "debian-openssl-1.1.x"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
 }
 
 generator prismaClassGenerator {
@@ -11,77 +8,50 @@ generator prismaClassGenerator {
   output   = "../src/endpoints/@generated"
 }
 
-// generator nestjs_dto_generator {
-//   provider             = "prisma-nestjs-dto-generator"
-//   enableModel          = true // default: true
-//   modelFileNameSuffix  = ".model" // default: ".model"
-//   modelClassNameSuffix = "Model" // default: ""
-//   enableSwagger        = true // default: false
-//   dtoClassNameSuffix   = "Dto" // default: "Dto"
-//   dtoFileNameSuffix    = ".dto" // default: ".dto"
-//   toLowerCase          = true // field name to lower case, default: false
-//   output               = "../src/endpoints/@generated"
-// }
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Sample {
-  id String @id @default(uuid())
-}
-
 model Tenant {
-  id Int @id @default(autoincrement())
-
-  name    String  @unique
-  enabled Boolean @default(true)
-
-  users       User[]
+  id          String       @id @default(uuid())
+  name        String       @unique
+  enabled     Boolean?     @default(true)
+  createdAt   DateTime?    @default(now()) @map("created_at")
+  updatedAt   DateTime?    @updatedAt @map("updated_at")
   departments Department[]
-
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  users       User[]
 
   @@map("tenants")
 }
 
 model Department {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-
-  users User[]
-
-  tenant   Tenant @relation(fields: [tenantId], references: [id])
-  tenantId Int    @map(name: "tenant_id")
-
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  id        String    @id @default(uuid())
+  name      String    @unique
+  tenantId  String    @map("tenant_id")
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  tenant    Tenant    @relation(fields: [tenantId], references: [id])
+  users     User[]
 
   @@map("departments")
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  role  String @default("USER")
-  email String @unique
-
-  firstName String? @map(name: "first_name")
-  lastName  String? @map(name: "last_name")
-
-  password String
-  enabled  Boolean @default(true)
-
-  tenant   Tenant? @relation(fields: [tenantId], references: [id])
-  tenantId Int?    @map(name: "tenant_id")
-
-  department   Department? @relation(fields: [departmentId], references: [id])
-  departmentId Int?        @map(name: "department_id")
-
-  timestamp DateTime @default(now())
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  id           String     @id @default(uuid())
+  role         String?    @default("USER")
+  email        String     @unique
+  firstName    String?    @default("") @map("first_name")
+  lastName     String?    @default("") @map("last_name")
+  password     String
+  enabled      Boolean?   @default(true)
+  tenantId     String     @map("tenant_id")
+  departmentId String     @map("department_id")
+  timestamp    DateTime?  @default(now())
+  createdAt    DateTime?  @default(now()) @map("created_at")
+  updatedAt    DateTime?  @updatedAt @map("updated_at")
+  department   Department @relation(fields: [departmentId], references: [id])
+  tenant       Tenant     @relation(fields: [tenantId], references: [id])
 
   @@map("users")
 }

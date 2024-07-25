@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'nestjs-prisma';
-import { SearchUserInput, SortUserInput, UserCreateInputDto } from './types';
+import { SearchUserInput, SortUserInput } from './types';
 
 @Injectable()
 export class UsersService {
@@ -29,7 +29,7 @@ export class UsersService {
     });
   }
 
-  async create(createInput: UserCreateInputDto) {
+  async create(createInput: Prisma.UserCreateInput) {
     console.log(`create user`);
     const { password: rawPassword, ...createUserInput } = createInput;
     let password: string;
@@ -41,13 +41,15 @@ export class UsersService {
         ...createUserInput,
         password,
       },
+      omit: {
+        password: true,
+      },
     });
     console.log(`create user id: ${res.id}`);
-    res.password = '';
     return res;
   }
 
-  async update(id: number, updateInput: UserCreateInputDto) {
+  async update(id: string, updateInput: Prisma.UserUpdateInput) {
     console.log(`update user id: ${id}`);
     const { password: rawPassword, ...updateUserInput } = updateInput;
     let password: string;
@@ -62,12 +64,14 @@ export class UsersService {
         ...updateUserInput,
         password,
       },
+      omit: {
+        password: true,
+      },
     });
-    res.password = '';
     return res;
   }
 
-  async disable(id: number) {
+  async disable(id: string) {
     console.log(`disable user id: ${id}`);
     const res = await this.prisma.user.update({
       where: {

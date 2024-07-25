@@ -20,13 +20,14 @@ export class UsersController {
   @ApiParam({ name: 'id' })
   @Put(':id')
   updateUser(@Param() { id }, @Body() userData: UserCreateInputDto) {
-    return this.usersService.update(parseInt(id, 10), userData);
+    return this.usersService.update(id, userData);
   }
 
-  @Delete(':id')
+  @ApiOkResponse({ type: UserDto })
   @ApiParam({ name: 'id' })
+  @Delete(':id')
   disableUser(@Param() { id }) {
-    return this.usersService.disable(parseInt(id, 10));
+    return this.usersService.disable(id);
   }
 
   @ApiOkResponse({
