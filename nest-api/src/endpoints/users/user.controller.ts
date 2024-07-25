@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
 import { GetUsersInput, UserCreateInputDto } from './types';
-import { UserDto } from '../../@generated/dtos/user.dto';
+import { User as UserDto } from '../@generated/prisma-class/models/User.model';
 
 @ApiTags('users')
 @Controller('users')

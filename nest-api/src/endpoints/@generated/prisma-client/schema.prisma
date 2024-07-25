@@ -1,0 +1,63 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
+  output          = "../src/endpoints/@generated/prisma-client"
+}
+
+generator class_validator {
+  provider = "prisma-class-validator-generator"
+  output   = "../src/endpoints/@generated/prisma-class"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id          String       @id @default(uuid())
+  name        String       @unique
+  enabled     Boolean      @default(true)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  departments Department[]
+  users       User[]
+
+  @@map("tenants")
+}
+
+model Department {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  tenantId  String   @map("tenant_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  users     User[]
+
+  @@map("departments")
+}
+
+model User {
+  id           String     @id @default(uuid())
+  email        String     @unique
+  firstName    String     @default("") @map("first_name")
+  lastName     String     @default("") @map("last_name")
+  password     String
+  enabled      Boolean    @default(true)
+  tenantId     String     @map("tenant_id")
+  departmentId String     @map("department_id")
+  timestamp    DateTime   @default(now())
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+  role         UserRole   @default(USER)
+  department   Department @relation(fields: [departmentId], references: [id])
+  tenant       Tenant     @relation(fields: [tenantId], references: [id])
+
+  @@map("users")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}

@@ -7,7 +7,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { UserDto } from '../../@generated/dtos/user.dto';
+import { User as UserDto } from '../@generated/prisma-class/models/User.model';
 import { UserRole } from '@prisma/client';
 
 export class UsersWithPagination {

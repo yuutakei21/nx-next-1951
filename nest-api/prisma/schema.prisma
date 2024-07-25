@@ -1,13 +1,14 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["omitApi"]
+  output          = "../src/endpoints/@generated/prisma-client"
 }
 
-generator prismaClassGenerator {
-  provider = "prisma-class-generator"
-  output   = "../src/endpoints/@generated"
-}
 
+generator class_validator {
+  provider = "prisma-class-validator-generator"
+   output   = "../src/endpoints/@generated/prisma-class"
+}
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
