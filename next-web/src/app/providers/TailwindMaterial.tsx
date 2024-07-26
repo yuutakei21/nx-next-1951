@@ -1,8 +1,8 @@
 "use client";
 
-import  ThemeProvider from "@material-tailwind/react/theme";
 import { useEffect, useState } from "react";
 import { materialTheme } from "../theme";
+import { ThemeProvider } from "@material-tailwind/react/context/theme";
 
 export default function TailwindMaterial({
   children,
