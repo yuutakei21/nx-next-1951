@@ -131,7 +131,12 @@ export default function Index() {
 
               <div className="mt-6 flex items-center justify-end">
                 <div className="text-sm leading-5">
-                  <Link href="/reset-password">RESET_PASSWORD_STR</Link>
+                  <Link
+                    className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+                    href="/reset-password"
+                  >
+                    RESET_PASSWORD_STR
+                  </Link>
                 </div>
               </div>
 
