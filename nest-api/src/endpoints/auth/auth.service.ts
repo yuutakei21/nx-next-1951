@@ -30,11 +30,11 @@ export class AuthService {
     });
   }
 
-  async validateUserByPassword(
-    loginAttempt: LoginUserInput,
-  ): Promise<LoginResult | undefined> {
+  async validate(loginAttempt: LoginUserInput): Promise<LoginResult> {
     // This will be used for the initial login
     let userToAttempt: User;
+    let result: LoginResult = { user: null, token: '' };
+
     if (loginAttempt.email) {
       userToAttempt = await this._usersService.findOneByEmail(
         loginAttempt.email,
@@ -52,13 +52,13 @@ export class AuthService {
     try {
       isMatch = await this.checkPassword(loginAttempt.password, userToAttempt);
     } catch (error) {
-      return undefined;
+      return result;
     }
 
     if (isMatch && userToAttempt) {
       // If there is a successful match, generate a JWT for the user
       const token = this.createJwt(userToAttempt).token;
-      const result: LoginResult = {
+      result = {
         user: userToAttempt,
         token,
       };
@@ -67,7 +67,7 @@ export class AuthService {
       return result;
     }
 
-    return undefined;
+    return result;
   }
 
   /**

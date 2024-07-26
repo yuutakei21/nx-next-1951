@@ -1,6 +1,5 @@
 import { AuthService } from './auth.service';
 import { LoginResult, LoginUserInput } from './dto/auth-inputs.dto';
-import { CustomBadRequestCredentialException } from '../../constants/errors';
 import {
   Controller,
   Post,
@@ -17,13 +16,9 @@ export class AuthController {
 
   @ApiOkResponse({ type: LoginResult })
   @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-  @Post()
-  async login(@Body() user: LoginUserInput) {
-    console.log(user);
-    const result = await this.authService.validateUserByPassword(user);
-
-    if (result) return result;
-    throw CustomBadRequestCredentialException;
+  @Post('login')
+  login(@Body() user: LoginUserInput): LoginResult | Promise<LoginResult> {
+    return this.authService.validate(user);
   }
 
   // There is no username guard here because if the person has the token, they can be any user

@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import TailwindMaterial from "./providers/TailwindMaterial";
 import { ToastProvider } from "./components/Toast";
 import QueryProvider from "./providers/QueryProvider";
+import AuthProvider from "./providers/AuthProvider";
 
 const inter = Inter({ subsets: ["latin-ext"] });
 
@@ -22,8 +23,9 @@ export default function RootLayout({
       <body className={inter.className} suppressHydrationWarning={true}>
         <TailwindMaterial>
           <ToastProvider>
-            {/* {children} */}
-            <QueryProvider>{children}</QueryProvider>
+            <QueryProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </QueryProvider>
           </ToastProvider>
         </TailwindMaterial>
       </body>

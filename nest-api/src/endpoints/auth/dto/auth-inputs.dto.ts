@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsEmail, IsNotEmpty } from 'class-validator';
-import { User } from '../../../@generated/prisma-class/user/entities/user.entity';
+import { User } from '../../../@generated/prisma-client';
+import { UserDto } from '../../../dtos/user.entity';
 
 export class LoginUserInput {
   @ApiProperty({ type: String })
@@ -17,7 +18,7 @@ export class LoginUserInput {
 }
 
 export class LoginResult {
-  @ApiProperty({ type: User })
+  @ApiProperty({ type: UserDto })
   user: User;
 
   @ApiProperty({ type: String })
