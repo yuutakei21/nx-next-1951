@@ -1,3 +1,5 @@
+"use client";
+
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
@@ -11,13 +13,17 @@ import { Loading } from "@/app/components/Loading";
 import TextInput from "@/app/components/molecules/TextInput";
 import PasswordInput from "@/app/components/molecules/PasswordInput";
 import Link from "next/link";
+import { useToast } from "@/app/components/Toast/useToast";
+import { ToastError, ToastSuccess } from "@/app/components/Toast/type";
+import { rapini } from "@/app/providers/QueryProvider";
 
-export default () => {
+export default function Index() {
   const [loading, setLoading] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
   const [signedInUser, setSignedUser] = useState(getCookie(COOKIE_NAME));
-  const [catUrl, setCatUrl] = useState("");
-  const [feUrl, setFeUrl] = useState("");
+  const { add } = useToast();
+  const { queries, mutations, requests } = rapini;
+  const { mutate, data } = mutations.useAuthControllerLogin();
 
   useEffect(() => {
     const cookieId = getCookie(COOKIE_CID);
@@ -29,24 +35,27 @@ export default () => {
     }
   }, []);
 
-  const login = async () => {
-    setLoading(true);
-
-    const { email, password } = values;
-    // const resp = await signIn({ email, password });
-    const resp = { success: false, data: { id: 1 } };
-    if (resp.success) {
+  useEffect(() => {
+    if (data.success) {
       setCookie(COOKIE_CID, resp.data.id);
       setCookie(COOKIE_NAME, email);
 
       setSignedUser(email);
       setSignedIn(true);
 
-      //   toastSuccess(resp.message);
+      add(new ToastSuccess("success login"));
     } else {
-      //   toastError(resp.message);
+      add(new ToastError("login failed !!!"));
     }
     setLoading(false);
+    setLoading(false);
+  }, [add, data]);
+
+  const login = async () => {
+    setLoading(true);
+    console.log("login");
+    const { email, password } = values;
+    mutate({ email, password });
   };
 
   const logout = () => {
@@ -148,4 +157,4 @@ export default () => {
       {/* <Footer /> */}
     </div>
   );
-};
+}

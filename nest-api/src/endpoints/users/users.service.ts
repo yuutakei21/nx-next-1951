@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { CustomPrismaService } from 'nestjs-prisma';
 import { SearchUserInput, SortUserInput } from './types';
 import { Prisma, PrismaClient, User } from '../../@generated/prisma-client';
+import { CreateUserDto } from '../../@generated/prisma-class/user/dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -28,9 +29,14 @@ export class UsersService {
     });
   }
 
-  async create(createInput: Prisma.UserUncheckedCreateInput) {
+  async create(createInput: CreateUserDto) {
     console.log(`create user`);
-    const { password: rawPassword, ...createUserInput } = createInput;
+    const {
+      password: rawPassword,
+      tenant,
+      department,
+      ...createUserInput
+    } = createInput;
     let password: string;
     if (rawPassword) {
       password = await this.hashPassword(rawPassword);
@@ -38,6 +44,8 @@ export class UsersService {
     const res = await this.prisma.client.user.create({
       data: {
         ...createUserInput,
+        tenantId: tenant.connect.id,
+        departmentId: department.connect.id,
         password,
       },
       omit: {

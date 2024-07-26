@@ -7,3 +7,4 @@ services:
       PGDATA: /data/postgres
     ports:
       - "5432:5432"
+

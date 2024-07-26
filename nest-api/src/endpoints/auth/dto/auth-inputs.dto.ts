@@ -1,27 +1,25 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { User } from '../../../@generated/prisma-client';
+import { IsEmail, IsNotEmpty } from 'class-validator';
+import { User } from '../../../@generated/prisma-class/user/entities/user.entity';
 
 export class LoginUserInput {
   @ApiProperty({ type: String })
   @Type(() => String)
-  email?: string;
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
 
   @ApiProperty({ type: String })
   @Type(() => String)
+  @IsNotEmpty()
   password: string;
 }
 
 export class LoginResult {
+  @ApiProperty({ type: User })
   user: User;
 
-  @Type(() => String)
+  @ApiProperty({ type: String })
   token: string;
-}
-
-export class SignOutResult {
-  user: User;
-
-  @Type(() => String)
-  token: null;
 }

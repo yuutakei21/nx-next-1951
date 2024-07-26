@@ -11,28 +11,29 @@ import {
 } from '@nestjs/common';
 import { ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
 import { GetUsersInput, UserCreateInputDto } from './types';
-import { User as UserDto } from '../../@generated/prisma-class/models/User.model';
+import { CreateUserDto } from '../../@generated/prisma-class/user/dto/create-user.dto';
+import { User } from '../../@generated/prisma-class/user/entities/user.entity';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @ApiOkResponse({ type: UserDto })
+  @ApiOkResponse({ type: User })
   @Post('create')
   @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-  createUser(@Body() createUserDto: UserCreateInputDto) {
+  createUser(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
-  @ApiOkResponse({ type: UserDto })
+  @ApiOkResponse({ type: User })
   @ApiParam({ name: 'id' })
   @Put(':id')
   updateUser(@Param() { id }, @Body() userData: UserCreateInputDto) {
     return this.usersService.update(id, userData);
   }
 
-  @ApiOkResponse({ type: UserDto })
+  @ApiOkResponse({ type: User })
   @ApiParam({ name: 'id' })
   @Delete(':id')
   disableUser(@Param() { id }) {
@@ -40,7 +41,7 @@ export class UsersController {
   }
 
   @ApiOkResponse({
-    type: UserDto,
+    type: User,
     isArray: true,
   })
   @Post('all')

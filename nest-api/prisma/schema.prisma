@@ -1,14 +1,15 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["omitApi"]
-  output          = "../src/endpoints/@generated/prisma-client"
+  output          = "../src/@generated/prisma-client"
 }
 
+// generator nestjsDto {
+//   output                          = "../src/@generated/prisma-class"
+//   provider                        = "prisma-generator-nestjs-dto"
+//   outputToNestJsResourceStructure = "true"
+// }
 
-generator class_validator {
-  provider = "prisma-class-validator-generator"
-   output   = "../src/endpoints/@generated/prisma-class"
-}
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -27,32 +28,41 @@ model Tenant {
 }
 
 model Department {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  tenantId  String   @map("tenant_id")
+  id   String @id @default(uuid())
+  name String @unique
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  tenant    Tenant   @relation(fields: [tenantId], references: [id])
-  users     User[]
+
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+  tenantId String @map("tenant_id")
+
+  users User[]
 
   @@map("departments")
 }
 
 model User {
-  id           String     @id @default(uuid())
-  email        String     @unique
-  firstName    String     @default("") @map("first_name")
-  lastName     String     @default("") @map("last_name")
-  password     String
-  enabled      Boolean    @default(true)
-  tenantId     String     @map("tenant_id")
-  departmentId String     @map("department_id")
-  timestamp    DateTime   @default(now())
-  createdAt    DateTime   @default(now()) @map("created_at")
-  updatedAt    DateTime   @updatedAt @map("updated_at")
-  role         UserRole   @default(USER)
-  department   Department @relation(fields: [departmentId], references: [id])
-  tenant       Tenant     @relation(fields: [tenantId], references: [id])
+  id        String @id @default(uuid())
+  email     String @unique
+  firstName String @default("") @map("first_name")
+
+  lastName String  @default("") @map("last_name")
+  password String
+  enabled  Boolean @default(true)
+
+  tenantId     String @map("tenant_id")
+  departmentId String @map("department_id")
+
+  timestamp DateTime @default(now())
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  role UserRole @default(USER)
+  department Department @relation(fields: [departmentId], references: [id])
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
 
   @@map("users")
 }

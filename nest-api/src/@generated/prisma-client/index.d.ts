@@ -2196,25 +2196,25 @@ export namespace Prisma {
   export type DepartmentMinAggregateOutputType = {
     id: string | null
     name: string | null
-    tenantId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    tenantId: string | null
   }
 
   export type DepartmentMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    tenantId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    tenantId: string | null
   }
 
   export type DepartmentCountAggregateOutputType = {
     id: number
     name: number
-    tenantId: number
     createdAt: number
     updatedAt: number
+    tenantId: number
     _all: number
   }
 
@@ -2222,25 +2222,25 @@ export namespace Prisma {
   export type DepartmentMinAggregateInputType = {
     id?: true
     name?: true
-    tenantId?: true
     createdAt?: true
     updatedAt?: true
+    tenantId?: true
   }
 
   export type DepartmentMaxAggregateInputType = {
     id?: true
     name?: true
-    tenantId?: true
     createdAt?: true
     updatedAt?: true
+    tenantId?: true
   }
 
   export type DepartmentCountAggregateInputType = {
     id?: true
     name?: true
-    tenantId?: true
     createdAt?: true
     updatedAt?: true
+    tenantId?: true
     _all?: true
   }
 
@@ -2319,9 +2319,9 @@ export namespace Prisma {
   export type DepartmentGroupByOutputType = {
     id: string
     name: string
-    tenantId: string
     createdAt: Date
     updatedAt: Date
+    tenantId: string
     _count: DepartmentCountAggregateOutputType | null
     _min: DepartmentMinAggregateOutputType | null
     _max: DepartmentMaxAggregateOutputType | null
@@ -2344,9 +2344,9 @@ export namespace Prisma {
   export type DepartmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenantId?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     users?: boolean | Department$usersArgs<ExtArgs>
     _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
@@ -2355,21 +2355,21 @@ export namespace Prisma {
   export type DepartmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenantId?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["department"]>
 
   export type DepartmentSelectScalar = {
     id?: boolean
     name?: boolean
-    tenantId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tenantId?: boolean
   }
 
-  export type DepartmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "tenantId" | "createdAt" | "updatedAt", ExtArgs["result"]["department"]>
+  export type DepartmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "tenantId", ExtArgs["result"]["department"]>
   export type DepartmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     users?: boolean | Department$usersArgs<ExtArgs>
@@ -2388,9 +2388,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      tenantId: string
       createdAt: Date
       updatedAt: Date
+      tenantId: string
     }, ExtArgs["result"]["department"]>
     composites: {}
   }
@@ -2788,9 +2788,9 @@ export namespace Prisma {
   interface DepartmentFieldRefs {
     readonly id: FieldRef<"Department", 'String'>
     readonly name: FieldRef<"Department", 'String'>
-    readonly tenantId: FieldRef<"Department", 'String'>
     readonly createdAt: FieldRef<"Department", 'DateTime'>
     readonly updatedAt: FieldRef<"Department", 'DateTime'>
+    readonly tenantId: FieldRef<"Department", 'String'>
   }
     
 
@@ -4287,9 +4287,9 @@ export namespace Prisma {
   export const DepartmentScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    tenantId: 'tenantId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    tenantId: 'tenantId'
   };
 
   export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
@@ -4464,9 +4464,9 @@ export namespace Prisma {
     NOT?: DepartmentWhereInput | DepartmentWhereInput[]
     id?: StringFilter<"Department"> | string
     name?: StringFilter<"Department"> | string
-    tenantId?: StringFilter<"Department"> | string
     createdAt?: DateTimeFilter<"Department"> | Date | string
     updatedAt?: DateTimeFilter<"Department"> | Date | string
+    tenantId?: StringFilter<"Department"> | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     users?: UserListRelationFilter
   }
@@ -4474,9 +4474,9 @@ export namespace Prisma {
   export type DepartmentOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenantId?: SortOrder
     tenant?: TenantOrderByWithRelationInput
     users?: UserOrderByRelationAggregateInput
   }
@@ -4487,9 +4487,9 @@ export namespace Prisma {
     AND?: DepartmentWhereInput | DepartmentWhereInput[]
     OR?: DepartmentWhereInput[]
     NOT?: DepartmentWhereInput | DepartmentWhereInput[]
-    tenantId?: StringFilter<"Department"> | string
     createdAt?: DateTimeFilter<"Department"> | Date | string
     updatedAt?: DateTimeFilter<"Department"> | Date | string
+    tenantId?: StringFilter<"Department"> | string
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     users?: UserListRelationFilter
   }, "id" | "name">
@@ -4497,9 +4497,9 @@ export namespace Prisma {
   export type DepartmentOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenantId?: SortOrder
     _count?: DepartmentCountOrderByAggregateInput
     _max?: DepartmentMaxOrderByAggregateInput
     _min?: DepartmentMinOrderByAggregateInput
@@ -4511,9 +4511,9 @@ export namespace Prisma {
     NOT?: DepartmentScalarWhereWithAggregatesInput | DepartmentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Department"> | string
     name?: StringWithAggregatesFilter<"Department"> | string
-    tenantId?: StringWithAggregatesFilter<"Department"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Department"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Department"> | Date | string
+    tenantId?: StringWithAggregatesFilter<"Department"> | string
   }
 
   export type UserWhereInput = {
@@ -4685,9 +4685,9 @@ export namespace Prisma {
   export type DepartmentUncheckedCreateInput = {
     id?: string
     name: string
-    tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenantId: string
     users?: UserUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
@@ -4703,18 +4703,18 @@ export namespace Prisma {
   export type DepartmentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
     users?: UserUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentCreateManyInput = {
     id?: string
     name: string
-    tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenantId: string
   }
 
   export type DepartmentUpdateManyMutationInput = {
@@ -4727,9 +4727,9 @@ export namespace Prisma {
   export type DepartmentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateInput = {
@@ -4958,25 +4958,25 @@ export namespace Prisma {
   export type DepartmentCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenantId?: SortOrder
   }
 
   export type DepartmentMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenantId?: SortOrder
   }
 
   export type DepartmentMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    tenantId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tenantId?: SortOrder
   }
 
   export type EnumUserRoleFilter<$PrismaModel = never> = {
@@ -5413,9 +5413,9 @@ export namespace Prisma {
     NOT?: DepartmentScalarWhereInput | DepartmentScalarWhereInput[]
     id?: StringFilter<"Department"> | string
     name?: StringFilter<"Department"> | string
-    tenantId?: StringFilter<"Department"> | string
     createdAt?: DateTimeFilter<"Department"> | Date | string
     updatedAt?: DateTimeFilter<"Department"> | Date | string
+    tenantId?: StringFilter<"Department"> | string
   }
 
   export type UserUpsertWithWhereUniqueWithoutTenantInput = {
@@ -5569,9 +5569,9 @@ export namespace Prisma {
   export type DepartmentUncheckedCreateWithoutUsersInput = {
     id?: string
     name: string
-    tenantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    tenantId: string
   }
 
   export type DepartmentCreateOrConnectWithoutUsersInput = {
@@ -5624,9 +5624,9 @@ export namespace Prisma {
   export type DepartmentUncheckedUpdateWithoutUsersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenantId?: StringFieldUpdateOperationsInput | string
   }
 
   export type TenantUpsertWithoutUsersInput = {
