@@ -11,7 +11,7 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    optimizePackageImports: ["@material-tailwind/react"],
+    optimizePackageImports: ["@material-tailwind/react", "@heroicons/reactF"],
   },
   output: "standalone",
 };

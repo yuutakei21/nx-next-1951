@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 import {
   Navbar,
   Collapse,
@@ -8,21 +8,14 @@ import {
   Button,
   IconButton,
   Card,
-} from '@material-tailwind/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faAlignJustify,
-  faCaretSquareLeft,
-  faEject,
-  faEllipsisV,
-  faKey,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@material-tailwind/react";
+
 import Menu, {
   MenuHandler,
   MenuItem,
   MenuList,
-} from '@material-tailwind/react/components/Menu';
-import { useSidebar } from './Sidebar/useSidebar';
+} from "@material-tailwind/react/components/Menu";
+import { useSidebar } from "./Sidebar/useSidebar";
 
 function Header() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -33,7 +26,7 @@ function Header() {
       <div className="flex items-center justify-between text-blue-gray-900 h-full">
         <div className="flex flex-row gap-2">
           <IconButton className="bg-transparent shadow-none" onClick={toggle}>
-            <FontAwesomeIcon className="text-gray-700" icon={faAlignJustify} />
+            {/* add button icon todo */}aaa
           </IconButton>
           <Typography
             as="a"
@@ -48,19 +41,16 @@ function Header() {
           <Menu>
             <MenuHandler>
               <IconButton className="bg-transparent shadow-none">
-                <FontAwesomeIcon className="text-gray-700" icon={faEllipsisV} />
+                aaa
               </IconButton>
             </MenuHandler>
             <MenuList>
               <MenuItem>
-                <FontAwesomeIcon className="text-gray-700 mr-2" icon={faKey} />
+                {/* add icon todo */}
                 パスワード設定
               </MenuItem>
               <MenuItem>
-                <FontAwesomeIcon
-                  className="text-gray-700 mr-2"
-                  icon={faCaretSquareLeft}
-                />
+                {/* add icon todo */}
                 ログアウト
               </MenuItem>
             </MenuList>
