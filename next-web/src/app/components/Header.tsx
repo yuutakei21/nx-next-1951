@@ -1,14 +1,6 @@
 "use client";
 
 import React from "react";
-import {
-  Navbar,
-  Collapse,
-  Typography,
-  Button,
-  IconButton,
-  Card,
-} from "@material-tailwind/react";
 
 import Menu, {
   MenuHandler,
@@ -16,6 +8,9 @@ import Menu, {
   MenuList,
 } from "@material-tailwind/react/components/Menu";
 import { useSidebar } from "./Sidebar/useSidebar";
+import IconButton from "@material-tailwind/react/components/IconButton";
+import Typography from "@material-tailwind/react/components/Typography";
+import Navbar from "@material-tailwind/react/components/Navbar";
 
 function Header() {
   const [openNav, setOpenNav] = React.useState(false);

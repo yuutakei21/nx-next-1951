@@ -3,24 +3,15 @@ import {
   ChevronUpDownIcon,
 } from "@heroicons/react/24/outline";
 import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
-import {
-  Card,
-  CardHeader,
-  Input,
-  Typography,
-  Button,
-  CardBody,
-  Chip,
-  CardFooter,
-  Tabs,
-  TabsHeader,
-  Tab,
-  Avatar,
-  IconButton,
-  Tooltip,
-} from "@material-tailwind/react";
 import TabButtons from "./TabButtons";
 import SearchInput from "./SearchInput";
+import Typography from "@material-tailwind/react/components/Typography";
+import Card, { CardBody, CardFooter, CardHeader } from "@material-tailwind/react/components/Card";
+import Button from "@material-tailwind/react/components/Button";
+import Avatar from "@material-tailwind/react/components/Avatar";
+import Chip from "@material-tailwind/react/components/Chip";
+import IconButton from "@material-tailwind/react/components/IconButton";
+import Tooltip from "@material-tailwind/react/components/Tooltip";
 
 const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
 

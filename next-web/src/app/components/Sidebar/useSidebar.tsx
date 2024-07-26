@@ -1,11 +1,10 @@
-'use client';
+"use client";
 
-import { createContext, FC, ReactNode, useContext, useState } from 'react';
-import { Sidebar } from './Sidebar';
-import { SidebarContextType, SidebarProps } from './type';
+import { createContext, FC, ReactNode, useContext, useState } from "react";
+import { Sidebar } from "./Sidebar";
+import { SidebarContextType, SidebarProps } from "./type";
 
 const SidebarContext = createContext<SidebarContextType>({
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   toggle: () => {},
 });
 

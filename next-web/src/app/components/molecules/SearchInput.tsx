@@ -1,5 +1,5 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Input } from "@material-tailwind/react";
+import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
+import Input from "@material-tailwind/react/components/Input";
 import { useState } from "react";
 
 function SearchInput({ value = "", onChange }: any) {

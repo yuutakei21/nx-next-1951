@@ -1,6 +1,16 @@
 {
   "extends": "next/core-web-vitals",
   "rules": {
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/no-empty-function":"off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          "@material-tailwind/react",
+          "@heroicons/react"
+        ]
+      }
+    ]
   }
 }

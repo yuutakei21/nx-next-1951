@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-"use client"
+"use client";
 
 import clsx from "clsx";
 import {

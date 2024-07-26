@@ -1,4 +1,7 @@
-import { Tab, Tabs, TabsHeader, Typography } from "@material-tailwind/react";
+import Tabs, {
+  Tab,
+  TabsHeader,
+} from "@material-tailwind/react/components/Tabs";
 import { useState } from "react";
 
 const SAMPLE_TABS = [
@@ -19,11 +22,11 @@ function TabButtons({ TABS = SAMPLE_TABS, onChange }: any) {
   const [value, setValue] = useState("unmonitored");
 
   function handleChange(newVal: any) {
-    console.log(newVal)
+    console.log(newVal);
     setValue(newVal);
     if (onChange) onChange(newVal);
   }
-  
+
   return (
     <Tabs value={value} className="w-full md:w-max">
       <TabsHeader>

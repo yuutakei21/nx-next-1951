@@ -1,19 +1,14 @@
 "use client";
 
-import { Alert, Button } from "@material-tailwind/react";
-import { Loading } from "../components/Loading";
-import { Sidebar } from "../components/Sidebar/Sidebar";
-import PlayGround from "../components/Toast/PlayGround";
-import PasswordInput from "../components/molecules/PasswordInput";
-import styles from "./page.module.css";
-import NoticeAlert from "../components/molecules/NoticeAlert";
-import { SortableTable } from "../components/molecules/SortTable";
+import { initialize } from "@/app/@openapi";
+import { Loading } from "@/app/components/Loading";
+import { SortableTable } from "@/app/components/molecules/SortTable";
+import Button from "@material-tailwind/react/components/Button";
 import axios from "axios";
-import { initialize } from "../@openapi";
 
 export default function Index() {
   const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_DOMAIN
+    baseURL: process.env.NEXT_PUBLIC_API_DOMAIN,
   });
 
   const rapini = initialize(instance);
@@ -21,7 +16,7 @@ export default function Index() {
   const { queries, mutations, requests } = rapini;
   const { mutate, data } = mutations.useAuthControllerLogin();
   const login = () => {
-    console.log(process.env.NEXT_PUBLIC_API_DOMAIN)
+    console.log(process.env.NEXT_PUBLIC_API_DOMAIN);
     console.log("login");
     const res = mutate({
       email: "admin@example.com",

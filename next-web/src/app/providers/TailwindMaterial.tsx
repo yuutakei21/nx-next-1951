@@ -1,6 +1,6 @@
 "use client";
 
-import { ThemeProvider } from "@material-tailwind/react";
+import  ThemeProvider from "@material-tailwind/react/theme";
 import { useEffect, useState } from "react";
 import { materialTheme } from "../theme";
 

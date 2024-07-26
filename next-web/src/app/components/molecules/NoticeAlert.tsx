@@ -1,6 +1,6 @@
-import { Typography } from '@material-tailwind/react';
 import Alert from '@material-tailwind/react/components/Alert';
 import IconButton from '@material-tailwind/react/components/IconButton';
+import Typography from '@material-tailwind/react/components/Typography';
 import { useState } from 'react';
 
 function NoticeAlert({ description = 'description' }: any) {
