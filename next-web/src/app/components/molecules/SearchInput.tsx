@@ -1,30 +1,30 @@
-import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
-import Input from "@material-tailwind/react/components/Input";
-import { useState } from "react";
+import MagnifyingGlassIcon from '@heroicons/react/24/outline/MagnifyingGlassIcon'
+import Input from '@material-tailwind/react/components/Input'
+import { useState } from 'react'
 
-function SearchInput({ value = "", onChange }: any) {
-  const [_value, setValue] = useState(value);
+function SearchInput({ value = '', onChange }: any) {
+  const [_value, setValue] = useState(value)
 
   function handleChange(newVal: any) {
-    console.log(newVal);
-    setValue(newVal);
-    if (onChange) onChange(newVal);
+    console.log(newVal)
+    setValue(newVal)
+    if (onChange) onChange(newVal)
   }
 
   return (
     <Input
       value={_value}
-      label="Search"
-      onChange={(e) => handleChange(e.target.value)}
+      label='Search'
+      onChange={e => handleChange(e.target.value)}
       icon={
         <MagnifyingGlassIcon
-          className="h-5 w-5 cursor-pointer"
-          onClick={(e) => console.log(_value)}
+          className='h-5 w-5 cursor-pointer'
+          onClick={e => console.log(_value)}
         />
       }
       crossOrigin={undefined}
     />
-  );
+  )
 }
 
-export default SearchInput;
+export default SearchInput

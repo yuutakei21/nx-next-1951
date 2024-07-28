@@ -1,11 +1,18 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "eslint-config-prettier"
+    "prettier"
+  ],
+  "ignorePatterns": [
+    "@openapi"
+  ],
+  "plugins": [
+    "eslint-plugin-unused-imports"
   ],
   "rules": {
     "react-hooks/exhaustive-deps": "off",
     "@typescript-eslint/no-empty-function": "off",
+    "unused-imports/no-unused-imports": "error",
     "no-restricted-imports": [
       "error",
       {
