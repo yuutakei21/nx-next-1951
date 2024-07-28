@@ -11,16 +11,15 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    optimizePackageImports: ["@material-tailwind/react", "@heroicons/react"],
+    optimizePackageImports: ['@material-tailwind/react', '@heroicons/react'],
   },
-  output: "standalone",
-};
-if (process.env.STATIC === "true") {
-  nextConfig.output = "export";
+}
+if (process.env.STATIC === 'true') {
+  nextConfig.output = 'export'
   nextConfig.typescript = {
     ignoreBuildErrors: true,
-  };
-  nextConfig.distDir = "./export/static";
-  nextConfig.trailingSlash = true;
+  }
+  nextConfig.distDir = './export/static'
+  nextConfig.trailingSlash = true
 }
-export default nextConfig;
+export default nextConfig
