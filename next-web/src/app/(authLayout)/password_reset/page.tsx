@@ -119,31 +119,6 @@ export default function Index() {
                 </div>
               </div>
 
-              <div className='mt-6 flex flex-col'>
-                <div className='flex flex-row justify-between'>
-                  <Typography>{PASSWORD_STR}</Typography>
-                  <Link
-                    className='text-sm underline text-blue-600 hover:text-blue-800 visited:text-purple-600'
-                    href='/password_reset'
-                  >
-                    {FORGOT_PW_STR}
-                  </Link>
-                </div>
-                <PasswordInput
-                  id='password'
-                  name='password'
-                  placeholder='パスワード'
-                  onChange={handleChange}
-                  error={Boolean(errors.password)}
-                />
-
-                {Boolean(errors.password) && (
-                  <Typography variant='small' color='red' className='pl-2'>
-                    {errors.password}
-                  </Typography>
-                )}
-              </div>
-
               <div className='mt-6'>
                 <span className='block w-full rounded-md shadow-sm'>
                   <Button className='w-full' type='submit'>
