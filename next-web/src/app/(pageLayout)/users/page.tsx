@@ -2,9 +2,9 @@
 
 import { initialize } from '@/app/@openapi'
 import { Loading } from '@/app/components/Loading'
-import { SortableTable } from '@/app/components/molecules/SortTable'
-import Button from '@material-tailwind/react/components/Button'
 import axios from 'axios'
+import newUserTemplate from './components/newUserTemplate'
+import DynamicForm from './components/DynamicForm'
 
 export default function Index() {
   const instance = axios.create({
@@ -32,8 +32,9 @@ export default function Index() {
       </div> */}
       {/* <PlayGround /> */}
       {/* <PasswordInput /> */}
-      <SortableTable />
-      <Button onClick={login}>LOGIN</Button>;
+      {/* <SortableTable /> */}
+      {/* <Button onClick={login}>LOGIN</Button>; */}
+      <DynamicForm schema={newUserTemplate} formSubmit={e => console.log(e)} />
     </div>
   )
 }

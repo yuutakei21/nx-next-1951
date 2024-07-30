@@ -1,3 +1,4 @@
+'use client'
 import Input from '@material-tailwind/react/components/Input'
 import React from 'react'
 
