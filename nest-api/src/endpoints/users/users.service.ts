@@ -124,11 +124,11 @@ export class UsersService {
 
     const orderBy: Prisma.UserOrderByWithRelationInput[] =
       this.normalizeUserSort(sort);
-
+    const take = pageSize;
     const data = await this.prisma.client.user.findMany({
       skip,
-      take: pageSize,
-      where: where,
+      take,
+      where,
       orderBy,
     });
 

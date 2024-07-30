@@ -11,9 +11,8 @@ import { Loading } from '@/app/components/Loading'
 import TextInput from '@/app/components/molecules/TextInput'
 import PasswordInput from '@/app/components/molecules/PasswordInput'
 import Link from 'next/link'
-import { useToast } from '@/app/components/Toast/useToast'
+import { useToast } from '@/app/components/Toast'
 import { ToastError, ToastSuccess } from '@/app/components/Toast/type'
-import { rapini } from '@/app/providers/QueryProvider'
 import { useRouter } from 'next/navigation'
 import {
   EMAIL_STR,
@@ -24,12 +23,19 @@ import {
 } from '@/app/constants/strings'
 import { getLocalParam } from '@/app/commons/cookies'
 import { AuthContext } from '@/app/providers/AuthProvider'
+import { initialize } from '@/app/@openapi'
+import axios from 'axios'
 
 export default function Index() {
   const router = useRouter()
   const { signedIn, signIn } = useContext(AuthContext)
   const [loading, setLoading] = useState(false)
   const { add } = useToast()
+  const instance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_DOMAIN,
+  })
+
+  const rapini = initialize(instance)
   const { queries, mutations, requests } = rapini
   const { mutate, data } = mutations.useAuthControllerLogin()
 

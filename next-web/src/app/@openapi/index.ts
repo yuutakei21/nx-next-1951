@@ -22,10 +22,10 @@ export type SortUserInput = {
     updatedAt: "asc" | "desc";
 };
 export type GetUsersInput = {
-    page: number;
-    pageSize: number;
-    search: SearchUserInput;
-    sort: SortUserInput;
+    page?: number;
+    pageSize?: number;
+    search?: SearchUserInput;
+    sort?: SortUserInput;
 };
 export type LoginUserInput = {
     email: string;

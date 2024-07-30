@@ -50,7 +50,7 @@ export class UsersController {
   @Post('all')
   async users(@Body() getUsersInput: GetUsersInput) {
     const { page, pageSize, search, sort } = getUsersInput;
-    const skip = Math.max(page - 1, 0) * pageSize;
+    const skip = page > 1 ? Math.max(page - 1, 0) * pageSize : 0;
     return this.usersService.findAll(skip, pageSize, search, sort);
   }
 }

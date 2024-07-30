@@ -27,15 +27,19 @@ export class SortUserInput {
 }
 
 export class GetUsersInput {
-  @ApiProperty({ type: () => Number, default: 1 })
+  @ApiProperty({ required: false, type: () => Number, default: 1 })
   page?: number = 1;
 
-  @ApiProperty({ type: () => Number, default: 1000 })
+  @ApiProperty({ required: false, type: () => Number, default: 1000 })
   pageSize?: number = 1000;
 
-  @ApiProperty({ type: () => SearchUserInput, default: null })
+  @ApiProperty({ required: false, type: () => SearchUserInput, default: null })
   search?: SearchUserInput;
 
-  @ApiProperty({ type: () => SortUserInput, default: { updatedAt: 'desc' } })
+  @ApiProperty({
+    required: false,
+    type: () => SortUserInput,
+    default: { updatedAt: 'desc' },
+  })
   sort?: SortUserInput = { updatedAt: 'desc' };
 }
