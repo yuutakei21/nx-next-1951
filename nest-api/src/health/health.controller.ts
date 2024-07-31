@@ -6,7 +6,7 @@ import {
   PrismaHealthIndicator,
 } from '@nestjs/terminus';
 import { CustomPrismaService } from 'nestjs-prisma';
-import { PrismaClient } from '../../@generated/prisma-client';
+import { PrismaClient } from '../@generated/prisma-client';
 
 @ApiTags('health')
 @Controller('health')

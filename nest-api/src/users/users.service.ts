@@ -1,14 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { CustomPrismaService } from 'nestjs-prisma';
-import { Prisma, PrismaClient, User } from '../../@generated/prisma-client';
+import { Prisma, PrismaClient, User } from '../@generated/prisma-client';
 import { SearchUserInput, SortUserInput } from './types';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject('CustomPrismaClient') // 👈 use unique name to reference
-    private prisma: CustomPrismaService<PrismaClient>, // specify PrismaClient for type-safety & auto-completion
+    @Inject('CustomPrismaClient')
+    private prisma: CustomPrismaService<PrismaClient>,
   ) {}
 
   hashPassword(password: string): Promise<string> {

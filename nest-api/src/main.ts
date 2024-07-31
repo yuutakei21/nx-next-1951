@@ -7,7 +7,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
-import { AspectLogger } from './operation-logs/aspect.logger';
+import { AspectLogger } from './middleware/aspect.logger';
 import { urlencoded } from 'express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
@@ -33,6 +33,7 @@ async function bootstrap() {
     .setTitle('example')
     .setDescription('The  API description')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

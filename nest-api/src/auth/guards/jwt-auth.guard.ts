@@ -1,6 +1,6 @@
 import { Injectable, ExecutionContext } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { CustomBadRequestCredentialException } from '../../../constants/errors';
+import { CustomBadRequestCredentialException } from '../../constants/errors';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {

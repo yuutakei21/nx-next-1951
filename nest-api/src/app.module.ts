@@ -2,12 +2,15 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CustomPrismaModule } from 'nestjs-prisma';
 import configuration from './configuration';
-import { AuthController } from './endpoints/auth/auth.controller';
-import { AuthModule } from './endpoints/auth/auth.module';
-import { HealthModule } from './endpoints/health/health.module';
-import { UsersController } from './endpoints/users/user.controller';
-import { UsersModule } from './endpoints/users/users.module';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
+import { HealthModule } from './health/health.module';
+import { UsersController } from './users/user.controller';
+import { UsersModule } from './users/users.module';
 import { PrismaClient } from './@generated/prisma-client';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './auth/guards/roles.guard';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -28,8 +31,14 @@ import { PrismaClient } from './@generated/prisma-client';
     HealthModule,
     AuthModule,
     UsersModule,
+    PostsModule,
   ],
   controllers: [UsersController, AuthController],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}
