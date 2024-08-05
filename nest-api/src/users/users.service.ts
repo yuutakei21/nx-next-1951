@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { CustomPrismaService } from 'nestjs-prisma';
-import { Prisma, PrismaClient, User } from '../@generated/prisma-client';
+import { Prisma, PrismaClient, User } from '@prisma-client';
 import { SearchUserInput, SortUserInput } from './types';
 
 @Injectable()
@@ -10,7 +10,47 @@ export class UsersService {
     @Inject('CustomPrismaClient')
     private prisma: CustomPrismaService<PrismaClient>,
   ) {}
+  async removeRefreshToken(id: number) {
+    const res = await this.prisma.client.user.update({
+      where: {
+        id,
+      },
+      data: {
+        currentHashedRefreshToken: null,
+      },
+      omit: {
+        password: true,
+      },
+    });
+    return res;
+  }
+  async setCurrentRefreshToken(refreshToken: string, id: number) {
+    const currentHashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+    const res = await this.prisma.client.user.update({
+      where: {
+        id,
+      },
+      data: {
+        currentHashedRefreshToken: currentHashedRefreshToken,
+      },
+      omit: {
+        password: true,
+      },
+    });
+    return res;
+  }
+  async getUserIfRefreshTokenMatches(refreshToken: string, userId: number) {
+    const user = await this.getById(userId);
 
+    const isRefreshTokenMatching = await bcrypt.compare(
+      refreshToken,
+      user.currentHashedRefreshToken,
+    );
+
+    if (isRefreshTokenMatching) {
+      return user;
+    }
+  }
   hashPassword(password: string): Promise<string> {
     return new Promise((resolve, reject) => {
       bcrypt.genSalt(10, (genSaltError, salt) => {
@@ -48,7 +88,7 @@ export class UsersService {
     return res;
   }
 
-  async update(id: string, updateInput: Prisma.UserUpdateInput) {
+  async update(id: number, updateInput: Prisma.UserUpdateInput) {
     console.log(`update user id: ${id}`);
     const { password: rawPassword, ...updateUserInput } = updateInput;
     let password: string;
@@ -70,7 +110,7 @@ export class UsersService {
     return res;
   }
 
-  async disable(id: string) {
+  async disable(id: number) {
     console.log(`disable user id: ${id}`);
     const res = await this.prisma.client.user.update({
       where: {
@@ -140,10 +180,17 @@ export class UsersService {
     };
   }
 
-  findOneByEmail(email: string) {
+  getByEmail(email: string) {
     return this.prisma.client.user.findFirst({
       where: {
         email,
+      },
+    });
+  }
+  getById(id: number) {
+    return this.prisma.client.user.findUnique({
+      where: {
+        id,
       },
     });
   }
@@ -171,7 +218,7 @@ export class UsersService {
     return expression.test(email);
   }
 
-  remove(id: string) {
+  remove(id: number) {
     return `This action removes a #${id} user`;
   }
 }

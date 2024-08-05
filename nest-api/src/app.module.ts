@@ -1,21 +1,26 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import * as Joi from 'joi';
 import { CustomPrismaModule } from 'nestjs-prisma';
-import configuration from './configuration';
-import { AuthController } from './auth/auth.controller';
-import { AuthModule } from './auth/auth.module';
+import { PrismaClient } from '@prisma-client';
 import { HealthModule } from './health/health.module';
 import { UsersController } from './users/user.controller';
 import { UsersModule } from './users/users.module';
-import { PrismaClient } from './@generated/prisma-client';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './auth/guards/roles.guard';
-import { PostsModule } from './posts/posts.module';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { AuthenticationController } from './authentication/authentication.controller';
+import JwtAuthenticationGuard from './authentication/jwt-authentication.guard';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [configuration],
+      validationSchema: Joi.object({
+        DATABASE_URL: Joi.string().required(),
+        JWT_ACCESS_TOKEN_SECRET: Joi.string().required(),
+        JWT_ACCESS_TOKEN_EXPIRATION_TIME: Joi.string().required(),
+        JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
+        JWT_REFRESH_TOKEN_EXPIRATION_TIME: Joi.string().required(),
+      }),
     }),
     CustomPrismaModule.forRoot({
       name: 'CustomPrismaClient', // 👈 must be unique for each PrismaClient
@@ -29,15 +34,14 @@ import { PostsModule } from './posts/posts.module';
       isGlobal: true,
     }),
     HealthModule,
-    AuthModule,
+    AuthenticationModule,
     UsersModule,
-    PostsModule,
   ],
-  controllers: [UsersController, AuthController],
+  controllers: [UsersController, AuthenticationController],
   providers: [
     {
       provide: APP_GUARD,
-      useClass: RolesGuard,
+      useClass: JwtAuthenticationGuard,
     },
   ],
 })

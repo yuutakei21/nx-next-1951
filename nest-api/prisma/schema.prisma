@@ -9,16 +9,8 @@ generator client {
   output          = "../src/@generated/prisma-client"
 }
 
-model Post {
-  id        String   @id @default(uuid())
-  title     String
-  content   String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-}
-
 model Tenant {
-  id          String       @id @default(uuid())
+  id          Int          @id @default(autoincrement())
   name        String       @unique
   enabled     Boolean      @default(true)
   createdAt   DateTime     @default(now()) @map("created_at")
@@ -30,14 +22,14 @@ model Tenant {
 }
 
 model Department {
-  id   String @id @default(uuid())
+  id   Int    @id @default(autoincrement())
   name String @unique
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   tenant   Tenant @relation(fields: [tenantId], references: [id])
-  tenantId String @map("tenant_id")
+  tenantId Int    @map("tenant_id")
 
   users User[]
 
@@ -45,26 +37,29 @@ model Department {
 }
 
 model User {
-  id        String @id @default(uuid())
-  email     String @unique
-  firstName String @default("") @map("first_name")
+  id Int @id @default(autoincrement())
 
-  lastName String  @default("") @map("last_name")
+  sub   String   @unique @default(uuid())
+  email String   @unique
+  role  UserRole @default(USER)
+
+  firstName String @default("") @map("first_name")
+  lastName  String @default("") @map("last_name")
+
   password String
   enabled  Boolean @default(true)
 
-  tenantId     String @map("tenant_id")
-  departmentId String @map("department_id")
+  tenantId     Int      @map("tenant_id")
+  departmentId Int      @map("department_id")
+  timestamp    DateTime @default(now())
 
-  timestamp DateTime @default(now())
+  currentHashedRefreshToken String? @map("refresh_token")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  role       UserRole   @default(USER)
   department Department @relation(fields: [departmentId], references: [id])
-
-  tenant Tenant @relation(fields: [tenantId], references: [id])
+  tenant     Tenant     @relation(fields: [tenantId], references: [id])
 
   @@map("users")
 }

@@ -7,7 +7,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { UserRole } from '../@generated/prisma-client';
+import { UserRole } from '@prisma-client';
 
 export class CreateUserDto {
   @ApiProperty({ type: () => String, default: 'user@example.com' })

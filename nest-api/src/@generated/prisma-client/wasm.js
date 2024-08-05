@@ -119,14 +119,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  content: 'content',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.TenantScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -145,7 +137,9 @@ exports.Prisma.DepartmentScalarFieldEnum = {
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  sub: 'sub',
   email: 'email',
+  role: 'role',
   firstName: 'firstName',
   lastName: 'lastName',
   password: 'password',
@@ -153,9 +147,9 @@ exports.Prisma.UserScalarFieldEnum = {
   tenantId: 'tenantId',
   departmentId: 'departmentId',
   timestamp: 'timestamp',
+  currentHashedRefreshToken: 'currentHashedRefreshToken',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  role: 'role'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -167,13 +161,17 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
 exports.UserRole = exports.$Enums.UserRole = {
   USER: 'USER',
   ADMIN: 'ADMIN'
 };
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
   Tenant: 'Tenant',
   Department: 'Department',
   User: 'User'

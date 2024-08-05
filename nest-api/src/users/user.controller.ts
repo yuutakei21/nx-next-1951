@@ -9,11 +9,10 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiParam, ApiTags } from '@nestjs/swagger';
-import { Prisma, UserRole } from '../@generated/prisma-client';
+import { Prisma } from '@prisma-client';
 import { GetUsersInput } from './types';
 import { UserDto } from '../dtos/user.entity';
 import { UsersService } from './users.service';
-import { Roles } from '../auth/decorators/roles.decorator';
 
 @ApiTags('users')
 @Controller('users')
@@ -48,7 +47,7 @@ export class UsersController {
     type: UserDto,
     isArray: true,
   })
-  @Roles([UserRole.ADMIN])
+  // @Roles([UserRole.ADMIN])
   @Post('all')
   async users(@Body() getUsersInput: GetUsersInput) {
     const { page, pageSize, search, sort } = getUsersInput;

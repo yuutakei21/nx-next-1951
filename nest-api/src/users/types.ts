@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDate, IsOptional } from 'class-validator';
-import { User } from '../@generated/prisma-client';
+import { User } from '@prisma-client';
 import { UserDto } from '../dtos/user.entity';
 
 export class UsersWithPagination {
