@@ -15,11 +15,16 @@ export default function FormSelect({ id, name, onChange, value, items: options }
       </Option>
     )
   }
+
+  function handleChange(e) {
+    onChange(e)
+    console.log(e)
+  }
   return (
     <Select
       id={id}
       name={name}
-      onChange={onChange}
+      onChange={handleChange}
       value={value}
       labelProps={{
         className: 'before:mr-0 after:ml-0',

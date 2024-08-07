@@ -3,6 +3,7 @@ import React from 'react'
 import { useFormik } from 'formik'
 import TextInput from '@/app/components/molecules/TextInput'
 import FormSelect from './form-control/FormSelect'
+import FormRadio from './form-control/FormRadio'
 
 const DynamicForm = ({ schema, formSubmit }) => {
   const formik = useFormik({
@@ -28,7 +29,9 @@ const DynamicForm = ({ schema, formSubmit }) => {
               id={field.name}
               name={field.name}
               type={field.type}
-              onChange={formik.handleChange}
+              onChange={(e: { target: { value: any } }) =>
+                formik.setFieldValue(field.name, e.target.value)
+              }
               value={formik.values[field.name]}
             />
           )}
@@ -36,9 +39,20 @@ const DynamicForm = ({ schema, formSubmit }) => {
             <FormSelect
               id={field.name}
               name={field.name}
-              onChange={formik.handleChange}
+              onChange={(e: any) => formik.setFieldValue(field.name, e)}
               value={formik.values[field.name]}
               items={field.items}
+            />
+          )}
+
+          {field.type == 'radio' && (
+            <FormRadio
+              id={field.name}
+              name={field.name}
+              onChange={(e: any) => formik.setFieldValue(field.name, e)}
+              value={formik.values[field.name]}
+              items={field.items}
+              otherLabel='OTHER'
             />
           )}
         </div>

@@ -15,5 +15,12 @@ const newUserTemplate = [
     items: ['MALE', 'FEMALE'],
     label: 'Gender',
   },
+
+  {
+    name: 'gender',
+    type: 'radio',
+    items: ['MALE', 'FEMALE'],
+    label: 'GenderRadio',
+  },
 ]
 export default newUserTemplate

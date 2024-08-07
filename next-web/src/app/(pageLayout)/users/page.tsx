@@ -5,6 +5,8 @@ import { useToast } from '@/app/components/Toast/useToast'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { UserTable } from './components/UserTable'
+import DynamicForm from './components/DynamicForm'
+import newUserTemplate from './components/newUserTemplate'
 
 export default function Index() {
   const instance = axios.create({
@@ -16,7 +18,7 @@ export default function Index() {
   const { mutate, data } = mutations.useUsersControllerUsers()
   const [loading, setLoading] = useState(false)
   const { add } = useToast()
-
+  const [formData, setFormData] = useState('')
   const getUsers = () => {
     console.log('login')
     const input: GetUsersInput = {}
@@ -32,16 +34,24 @@ export default function Index() {
   }, [data])
 
   return (
-    <div className={`bg-white flex flex-column justify-center max-h-pageContent min-h-pageContent`}>
+    <div className={`bg-white flex flex-col justify-start max-h-pageContent min-h-pageContent`}>
       <Loading enabled={false} />
       {/* <div className="py-2 w-10/12 h-fit">
         <NoticeAlert description="プロジェクトを選択することでプロジェクトにメンバーをアサインできます" />
       </div> */}
       {/* <PlayGround /> */}
       {/* <PasswordInput /> */}
-      <UserTable />
+      {/* <UserTable /> */}
       {/* <Button onClick={getUsers}>LOGIN</Button>; */}
-      {/* <DynamicForm schema={newUserTemplate} formSubmit={e => console.log(e)} /> */}
+      <div className='px-10 py-4'>
+        <DynamicForm
+          schema={newUserTemplate}
+          formSubmit={e => {
+            setFormData(JSON.stringify(e))
+          }}
+        />
+      </div>
+      {formData.toString()}
     </div>
   )
 }
